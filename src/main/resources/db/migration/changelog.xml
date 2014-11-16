@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <include file="src/main/resources/db/migration/changelog-001-introduce-posts-table.xml"/>
+    <include file="src/main/resources/db/migration/changelog-002-introduce-comments-table.xml"/>
+    <!--<include file="changelog-003-introduce-users-table.xml"></include>-->
+    <!--<include file="changelog-004-update-posts-table.xml"></include>-->
+    <!--<include file="changelog-005-update-comments-table.xml"></include>-->
+</databaseChangeLog>
