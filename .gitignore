@@ -7,3 +7,9 @@ release.properties
 
 # IDE files
 .idea
+.project
+.settings
+nbproject
+
+# I dunno what is that thing
+/Splinter.iml
