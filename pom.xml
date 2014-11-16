@@ -122,7 +122,7 @@
           <testFailureIgnore>false</testFailureIgnore>
         </configuration>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
         <version>${liquibase.version}</version>
@@ -141,7 +141,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
     </plugins>
     <finalName>splinter</finalName>
   </build>
