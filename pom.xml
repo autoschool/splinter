@@ -27,12 +27,6 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.javalite</groupId>
       <artifactId>activejdbc</artifactId>
       <version>1.4.9</version>
@@ -84,6 +78,18 @@
     </dependency>
 
     <!-- test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>pl.pragmatists</groupId>
+      <artifactId>JUnitParams</artifactId>
+      <version>1.0.3</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>ru.yandex.qatools.allure</groupId>
       <artifactId>allure-junit-adaptor</artifactId>
