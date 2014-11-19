@@ -14,7 +14,7 @@
 
     <jersey.version>2.13</jersey.version>
     <allure.version>1.4.4</allure.version>
-    <jersey.version>2.13</jersey.version>
+    <jetty.port>9998</jetty.port>
     <slf4j.version>1.7.7</slf4j.version>
     <liquibase.version>3.3.0</liquibase.version>
   </properties>
@@ -127,6 +127,30 @@
         <configuration>
           <testFailureIgnore>false</testFailureIgnore>
         </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>9.1.3.v20140225</version>
+          <configuration>
+              <scanIntervalSeconds>0</scanIntervalSeconds>
+              <systemProperties>
+                  <systemProperty>
+                      <name>environment</name>
+                      <value>prod</value>
+                  </systemProperty>
+              </systemProperties>
+              <webApp>
+                  <contextPath>/</contextPath>
+              </webApp>
+              <stopPort>9847</stopPort>
+              <stopKey>tms-local</stopKey>
+              <jvmArgs>
+                  -Xmx1024m
+                  -XX:MaxPermSize=512m
+              </jvmArgs>
+              <goal>run-forked</goal>
+          </configuration>
       </plugin>
       <!--<plugin>
         <groupId>org.liquibase</groupId>
