@@ -76,6 +76,11 @@
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>3.0</version>
+    </dependency>
 
     <!-- test dependencies -->
     <dependency>
@@ -151,6 +156,19 @@
               </jvmArgs>
               <goal>run-forked</goal>
           </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.javalite</groupId>
+        <artifactId>activejdbc-instrumentation</artifactId>
+        <version>1.4.9</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <!--<plugin>
         <groupId>org.liquibase</groupId>
