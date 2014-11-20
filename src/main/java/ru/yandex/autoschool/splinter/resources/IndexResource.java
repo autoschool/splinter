@@ -1,15 +1,13 @@
 package ru.yandex.autoschool.splinter.resources;
 
+import org.glassfish.jersey.server.mvc.ErrorTemplate;
+import org.glassfish.jersey.server.mvc.Template;
 import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.glassfish.jersey.server.mvc.ErrorTemplate;
-import org.glassfish.jersey.server.mvc.Template;
-
 import java.util.List;
 
 /**
@@ -32,7 +30,7 @@ public class IndexResource {
     @Path("/about")
     @Template(name = "/templates/index/about.ftl")
     public String aboutAction() {
-        return null;
+        return "about page";
     }
 
 }
