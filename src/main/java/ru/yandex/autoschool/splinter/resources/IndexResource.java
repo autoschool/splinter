@@ -27,10 +27,12 @@ public class IndexResource {
     public List<Post> indexAction() {
         return Post.findAll();
     }
+
     @GET
     @Path("/about")
     @Template(name = "/templates/index/about.ftl")
     public String aboutAction() {
         return null;
     }
+
 }

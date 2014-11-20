@@ -7,6 +7,8 @@ import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -44,12 +46,13 @@ public class PostResource {
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Post saveAction(@FormParam("title") String title, @FormParam("content") String content) {
+    public Response saveAction(@FormParam("title") String title, @FormParam("content") String content) {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();
-        return post;
+        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        return Response.seeOther(targetURIForRedirection).build();
     }
 
     @POST

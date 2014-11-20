@@ -10,6 +10,9 @@ import java.sql.Timestamp;
  * @since 1.0
  */
 public class Post extends Model {
+    public Integer getId() {
+        return getInteger("id");
+    }
     public String getTitle() {
         return getString("title");
     }
