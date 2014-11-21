@@ -9,7 +9,7 @@
         <#list model as post>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="/post/${post.id}">${post.title}</a> at ${post.createdAt}<br/>
+                    <a href="/posts/${post.id}">${post.title}</a> at ${post.createdAt}<br/>
                 </div>
             </div>
         </#list>
