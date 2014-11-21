@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="model" type="ru.qatools.school.switter.models.Post[]" -->
+<#-- @ftlvariable name="model" type="ru.yandex.autoschool.splinter.models.Post[]" -->
 <#import "/layouts/public.ftl" as layout />
 <@layout.layout title="Blog: posts">
 <div class="row">
