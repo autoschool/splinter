@@ -31,8 +31,13 @@ public class PostResource {
     @GET
     @Path("/{id}")
     @Template(name = "/templates/post/single.ftl")
-    public Post singleAction(@PathParam("id") int id) {
-        return Post.findById(id);
+    public Response singleAction(@PathParam("id") int id) {
+        Post post = Post.findById(id);
+        if (post == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(post).build();
     }
 
     @GET
