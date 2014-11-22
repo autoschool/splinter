@@ -23,7 +23,7 @@ public class IndexResource {
     @Path("/")
     @Template(name = "/templates/index/index.ftl")
     public List<Post> indexAction() {
-        return Post.findAll();
+        return Post.findAll().limit(3);
     }
 
     @GET
