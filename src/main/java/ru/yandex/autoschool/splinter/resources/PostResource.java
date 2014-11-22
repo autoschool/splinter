@@ -2,14 +2,18 @@ package ru.yandex.autoschool.splinter.resources;
 
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
+import org.javalite.activejdbc.LazyList;
+import org.javalite.activejdbc.Paginator;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Etki {@literal <etki@etki.name>}
@@ -24,8 +28,28 @@ public class PostResource {
     @GET
     @Path("/")
     @Template(name = "/templates/post/list.ftl")
-    public List<Post> listAction() {
-        return Post.findAll();
+    public Map listAction(@DefaultValue("1") @QueryParam("page") int page) {
+        Paginator p = new Paginator(Post.class, 3, "*").orderBy("created_at desc");
+        int pageCount = (int)p.pageCount();
+        if (pageCount == 0 || page < 1) {
+            page = 1;
+        } else if (page > pageCount) {
+            page = pageCount;
+        }
+        LazyList posts = p.getPage(page);
+
+        String linkUrl = "/posts/";
+
+        Map root = new HashMap();
+        root.put("model", posts);
+
+        Map<String, Object> pagination = new HashMap();
+        root.put("pagination", pagination);
+        pagination.put("currentPage", page);
+        pagination.put("totalPages", pageCount);
+        pagination.put("linkUrl", linkUrl);
+
+        return root;
     }
 
     @GET

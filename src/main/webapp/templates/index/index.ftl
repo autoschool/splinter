@@ -7,11 +7,7 @@
             <h2>Latest updates</h2>
         </div>
         <#list model as post>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="/post/${post.id}">${post.title}</a> at ${post.createdAt}<br/>
-                </div>
-            </div>
+            <#include "/layouts/post.ftl">
         </#list>
     </div>
 </div>
