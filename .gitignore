@@ -1,3 +1,5 @@
+.DS_Store
+
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -10,6 +12,12 @@ release.properties
 .project
 .settings
 nbproject
+
+*.iml
+
+## File-based project format:
+*.ipr
+*.iws
 
 # I dunno what is that thing
 /Splinter.iml
