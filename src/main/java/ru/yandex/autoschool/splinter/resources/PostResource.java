@@ -8,11 +8,10 @@ import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,6 +76,18 @@ public class PostResource {
     @Template(name = "/templates/post/single.ftl")
     public Response saveAction(@FormParam("title") String title, @FormParam("content") String content) {
         Post post = new Post();
+        post.setTitle(title);
+        post.setContent(content);
+        post.saveIt();
+        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        return Response.seeOther(targetURIForRedirection).build();
+    }
+    @POST
+    @Path("/{id}/edit")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Template(name= "/templates/post/single.ftl")
+    public Response editPostAction(@PathParam("id") int id, @FormParam("title") String title, @FormParam("content") String content){
+        Post post=Post.findById(id);
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();

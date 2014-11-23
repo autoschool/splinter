@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="model" type="ru.yandex.autoschool.splinter.models.Post" -->
 <#import "/layouts/public.ftl" as layout />
+<#include "/templates/post/redact.ftl">
 <@layout.layout title="Blog: show post">
 <div class="row">
     <div class="col-md-12">
@@ -8,6 +9,9 @@
         </div>
         <div class="post-body">
         ${model.content}
+            <div class="btn-group btn-group-sm pull-right">
+                <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Edit Post</a>
+            </div>
         </div>
 
         <div class="col-md-12">
