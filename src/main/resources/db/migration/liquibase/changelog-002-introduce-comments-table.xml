@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet id="002-introduce-comments-table" author="etki@etki.name" runOnChange="true">
-        <createTable tableName="Comment">
+        <createTable tableName="comments">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -21,9 +21,9 @@
             </column>
         </createTable>
         <addForeignKeyConstraint baseColumnNames="post_id"
-                                 baseTableName="Comment"
+                                 baseTableName="comments"
                                  referencedColumnNames="id"
-                                 referencedTableName="Post"
+                                 referencedTableName="posts"
                                  constraintName="fk_comment_ref_post"
                                  onDelete="CASCADE"
                                  onUpdate="CASCADE"/>

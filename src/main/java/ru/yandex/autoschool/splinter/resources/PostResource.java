@@ -1,9 +1,12 @@
 package ru.yandex.autoschool.splinter.resources;
 
+import org.apache.log4j.BasicConfigurator;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Paginator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
@@ -109,10 +112,10 @@ public class PostResource {
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Post commentAction(@PathParam("id") int id, @FormParam("content") String content) {
+    public Post commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
         Post post = Post.findById(id);
         Comment comment = new Comment();
-        comment.setContent(content);
+        comment.setContent(commentContent);
         post.add(comment);
         post.saveIt();
         return post;

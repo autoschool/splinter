@@ -19,13 +19,13 @@
             <h3>Comments</h3>
             <div class="post-body">
                 <ul class="list-group">
-                <#list model.comments as comment>
-                    <li class="list-group-item">
-                    <h style="color: steelblue">Created at ${comment.createdAt}</h><br>
-                    ${comment.content}
-                    </li>
-                    <br>
-                </#list>
+                    <#list model.comments as comment>
+                        <li class="list-group-item">
+                            <h style="color: steelblue">Created at ${comment.createdAt}</h><br>
+                        ${comment.content}
+                        </li>
+                        <br>
+                    </#list>
                 </ul>
             </div>
 

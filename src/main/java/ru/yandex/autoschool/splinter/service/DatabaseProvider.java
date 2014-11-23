@@ -1,17 +1,29 @@
 package ru.yandex.autoschool.splinter.service;
 
-import org.flywaydb.core.Flyway;
+import liquibase.Liquibase;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.FileSystemResourceAccessor;
+import liquibase.resource.ResourceAccessor;
+import org.apache.log4j.BasicConfigurator;
+import org.h2.jdbcx.JdbcDataSource;
 import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.activation.DataSource;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.FileSystem;
+import java.sql.Connection;
+import java.util.Set;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.createTempDirectory;
+
 
 /**
  * @author eroshenkoam
@@ -20,18 +32,26 @@ import static java.nio.file.Files.createTempDirectory;
  */
 @Provider
 public class DatabaseProvider implements ContainerRequestFilter {
-    private static final String DBUSER = "sa";
+    private final static String DBUSER = "sa";
     private final static Logger logger = LoggerFactory.getLogger(DatabaseProvider.class);
     private static String dbUrl;
 
     static {
+        BasicConfigurator.configure();
         try {
-            dbUrl = format("jdbc:h2:file:%s/%s,user=%s", getDbPath(), getDbName(), DBUSER);
+            dbUrl = format("jdbc:h2:mem:%s,user=%s", getDbName(), DBUSER);
             logger.info(format("Starting embedded database with url '%s' ...", dbUrl));
+            JdbcDataSource dataSource = new JdbcDataSource();
+            dataSource.setURL(dbUrl);
+            dataSource.setUser(DBUSER);
+            Connection connection = dataSource.getConnection();
+            JdbcConnection liquibaseConnection = new JdbcConnection(connection);
+            ResourceAccessor resourceAccessor = new FileSystemResourceAccessor();
+            String changeLogPath = getChangeLogLocation();
+            logger.info(format("Using `%s` as changelog path", changeLogPath));
+            Liquibase liquibase = new Liquibase(changeLogPath, resourceAccessor, liquibaseConnection);
+            liquibase.update("");
             openConnection();
-            Flyway flyway = new Flyway();
-            flyway.setDataSource(dbUrl, DBUSER, null);
-            flyway.migrate();
         } catch (Exception e) {
             logger.error("Failed to start embedded database", e);
             System.exit(-1);
@@ -44,12 +64,13 @@ public class DatabaseProvider implements ContainerRequestFilter {
         }
     }
 
-    private static String getDbName() {
-        return getProperty("db.name", "default");
+    private static String getChangeLogLocation() {
+        String path = DatabaseProvider.class.getClassLoader().getResource("/db/migration/changelog.xml").toString();
+        return path == null ? null : path.substring(5);
     }
 
-    private static String getDbPath() throws IOException {
-        return getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
+    private static String getDbName() {
+        return getProperty("db.name", "splinter");
     }
 
     private static String getProperty(String key, String defaultValue) {
