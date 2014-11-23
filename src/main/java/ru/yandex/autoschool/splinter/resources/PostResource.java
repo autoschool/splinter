@@ -94,6 +94,16 @@ public class PostResource {
         URI targetURIForRedirection = URI.create("/posts/" + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
+    @POST
+    @Path("/{id}/delete")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Template(name= "/templates/post/single.ftl")
+    public Response deletePostAction(@PathParam("id") int id){
+        Post post=Post.findById(id);
+        post.delete();
+        URI targetURIForRedirection = URI.create("/");
+        return Response.seeOther(targetURIForRedirection).build();
+    }
 
     @POST
     @Path("/{id}/comment")

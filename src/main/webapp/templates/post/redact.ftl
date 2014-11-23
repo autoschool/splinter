@@ -24,4 +24,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">x</button>
+                <h4 class="modal-title" id="myModalLabel">Delete post</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this post?</h4>
+            </div>
+            <form class="form" role="form" action="/posts/${model.id}/delete" method="post">
+            <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+                <button class="btn btn-primary" type="submit">Yes</button></div>
+            </form>
+        </div>
+    </div>
 </div>
+

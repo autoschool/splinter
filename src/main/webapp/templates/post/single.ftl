@@ -11,6 +11,7 @@
         ${model.content}
             <div class="btn-group btn-group-sm pull-right">
                 <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Edit Post</a>
+                <a href="#deleteModal" role="button" class="btn btn-large btn-danger" data-toggle="modal">Delete</a>
             </div>
         </div>
 
