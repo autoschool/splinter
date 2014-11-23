@@ -3,6 +3,9 @@
 <@layout.layout title="Blog: show post">
 <h1>All posts</h1>
 <div id="posts">
+    <#if model?size=0>
+        У нас пусто. Будьте первым, добавьте <a href="/posts/new">пост</a>.
+    </#if>
     <#list model as post>
         <#include "/layouts/post.ftl">
     </#list>
