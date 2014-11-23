@@ -7,6 +7,12 @@
   <version>1.0-SNAPSHOT</version>
   <name>Splinter weblogging software</name>
   <url>http://maven.apache.org</url>
+  <licenses>
+      <license>
+          <name>Apache 2</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+  </licenses>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
