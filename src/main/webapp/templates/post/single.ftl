@@ -21,7 +21,7 @@
                     </li>
                     <br>
                 </#list>
-                    </ul>
+                </ul>
             </div>
 
             <form class="form" role="form" action="/posts/${model.id}/comment" method="POST">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </form>
-        </div
+        </div>
     </div>
 
 

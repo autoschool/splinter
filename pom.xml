@@ -170,26 +170,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.liquibase</groupId>
-        <artifactId>liquibase-maven-plugin</artifactId>
-        <version>${liquibase.version}</version>
-        <configuration>
-          <changeLogFile>src/main/resources/db/migration/changelog.xml</changeLogFile>
-          <driver>org.h2.Driver</driver>
-          <url>jdbc:h2:file:${basedir}/target/h2</url>
-          <username>splinter</username>
-          <password>splinter</password>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>update</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
     <finalName>splinter</finalName>
   </build>
