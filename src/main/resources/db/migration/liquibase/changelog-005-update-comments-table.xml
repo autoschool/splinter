@@ -6,5 +6,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet id="005-update-comments-table" author="etki@etki.name" runOnChange="true">
+        <addColumn tableName="comments">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="comments">
+            <column name="nickname" type="VARCHAR(32)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

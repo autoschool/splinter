@@ -7,7 +7,11 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <include file="src/main/resources/db/migration/changelog-001-introduce-posts-table.xml"/>
     <include file="src/main/resources/db/migration/changelog-002-introduce-comments-table.xml"/>
-    <!--<include file="changelog-003-introduce-users-table.xml"></include>-->
-    <!--<include file="changelog-004-update-posts-table.xml"></include>-->
-    <!--<include file="changelog-005-update-comments-table.xml"></include>-->
+    <include file="src/main/resources/db/migration/changelog-003-introduce-users-table.xml"/>
+    <include file="src/main/resources/db/migration/changelog-004-update-posts-table.xml"/>
+    <include file="src/main/resources/db/migration/changelog-005-update-comments-table.xml"/>
+    <!--
+    <include file="src/main/resources/db/migration/changelog-006-introduce-files-table.xml"/>
+    <include file="src/main/resources/db/migration/changelog-007-update-users-table-with-avatars.xml"/>
+    -->
 </databaseChangeLog>

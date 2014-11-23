@@ -22,10 +22,9 @@
             <column name="nickname" type="VARCHAR(32)">
                 <constraints nullable="true"/>
             </column>
-            <!--<column name="avatar" type="INTEGER">
-                <constraints nullable="false">
-                </constraints>
-            </column>-->
+            <column name="role" type="VARCHAR(32)" defaultValue="reader">
+                <constraints nullable="false"/>
+            </column>
             <column name="registration_date" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
