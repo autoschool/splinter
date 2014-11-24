@@ -6,6 +6,11 @@
         <div class="page-header">
             <h2>Latest updates</h2>
         </div>
+
+        <#if model?size=0>
+            У нас пусто. Будьте первым, добавьте <a href="/posts/new">пост</a>.
+        </#if>
+
         <#list model as post>
             <#include "/layouts/post.ftl">
         </#list>

@@ -19,5 +19,6 @@ nbproject
 *.ipr
 *.iws
 
-# I dunno what is that thing
-/Splinter.iml
+## Local config files
+*.local.properties
+

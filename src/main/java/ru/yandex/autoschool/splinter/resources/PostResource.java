@@ -1,18 +1,20 @@
 package ru.yandex.autoschool.splinter.resources;
 
+import org.apache.log4j.BasicConfigurator;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Paginator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,15 +85,37 @@ public class PostResource {
         URI targetURIForRedirection = URI.create("/posts/" + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
+    @POST
+    @Path("/{id}/edit")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Template(name= "/templates/post/single.ftl")
+    public Response editPostAction(@PathParam("id") int id, @FormParam("title") String title, @FormParam("content") String content){
+        Post post=Post.findById(id);
+        post.setTitle(title);
+        post.setContent(content);
+        post.saveIt();
+        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        return Response.seeOther(targetURIForRedirection).build();
+    }
+    @POST
+    @Path("/{id}/delete")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Template(name= "/templates/post/single.ftl")
+    public Response deletePostAction(@PathParam("id") int id){
+        Post post=Post.findById(id);
+        post.delete();
+        URI targetURIForRedirection = URI.create("/");
+        return Response.seeOther(targetURIForRedirection).build();
+    }
 
     @POST
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Post commentAction(@PathParam("id") int id, @FormParam("content") String content) {
+    public Post commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
         Post post = Post.findById(id);
         Comment comment = new Comment();
-        comment.setContent(content);
+        comment.setContent(commentContent);
         post.add(comment);
         post.saveIt();
         return post;
