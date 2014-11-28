@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="pacahon" id="009">
+        <sql dbms="h2, mysql">
+            ALTER TABLE  `posts` CHANGE  `created_at`  `created_at` TIMESTAMP NOT NULL DEFAULT  '2000-01-01 00:00:01';
+            ALTER TABLE  `posts` CHANGE  `updated_at`  `updated_at` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+            <comment>Fix column attributes</comment>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
