@@ -7,7 +7,13 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <include file="changelog-001-introduce-posts-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog-002-introduce-comments-table.xml" relativeToChangelogFile="true"/>
-    <!--<include file="changelog-003-introduce-users-table.xml"></include>-->
-    <!--<include file="changelog-004-update-posts-table.xml"></include>-->
-    <!--<include file="changelog-005-update-comments-table.xml"></include>-->
+    <include file="changelog-003-introduce-users-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-004-update-posts-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-005-update-comments-table.xml" relativeToChangelogFile="true"/>
+    <!--
+    <include file="changelog-006-update-posts-table-lock-constraints.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-007-introduce-files-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-008-update-users-table-with-avatars.xml" relativeToChangelogFile="true"/>
+    -->
+    <include file="changelog-009-update-posts-table-fix-timestamp-columns.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

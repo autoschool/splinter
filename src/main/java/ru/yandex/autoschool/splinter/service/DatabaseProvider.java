@@ -52,8 +52,15 @@ public class DatabaseProvider implements ContainerRequestFilter {
             logger.info(format("Starting embedded database with url '%s' ...", dbUrl));
             String changeLogPath = getChangeLogLocation();
             logger.info(format("Using `%s` as changelog path", changeLogPath));
-            Liquibase liquibase = new Liquibase(changeLogPath, new FileSystemResourceAccessor(), getLiquibaseConnection());
-            liquibase.update("");
+            Liquibase liquibaseMigrationManager = new Liquibase(
+                    changeLogPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
+            );
+            liquibaseMigrationManager.update("");
+            String fixturesPath = getFixturesLocation();
+            Liquibase liquibaseFixtureImporter = new Liquibase(
+                    fixturesPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
+            );
+            liquibaseFixtureImporter.update("");
             openConnection();
         } catch (Exception e) {
             logger.error("Failed to start embedded database", e);
@@ -95,6 +102,11 @@ public class DatabaseProvider implements ContainerRequestFilter {
 
     private static String getChangeLogLocation() {
         URL url = DatabaseProvider.class.getClassLoader().getResource("/db/migration/changelog.xml");
+        return (url == null) ? null : url.getFile();
+    }
+
+    private static String getFixturesLocation() {
+        URL url = DatabaseProvider.class.getClassLoader().getResource("/db/fixtures/fixtures.xml");
         return (url == null) ? null : url.getFile();
     }
 
