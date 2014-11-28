@@ -5,6 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="006-introduce-files-table" author="etki@etki.name" runOnChange="true">
-    </changeSet>
+    <include file="fixtures-001-users.xml" relativeToChangelogFile="true"/>
+    <include file="fixtures-002-posts.xml" relativeToChangelogFile="true"/>
+    <include file="fixtures-003-comments.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

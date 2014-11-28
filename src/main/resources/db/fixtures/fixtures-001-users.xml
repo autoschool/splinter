@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="fixture-001-users" author="etki@etki.name" runOnChange="true">
+        <insert tableName="users">
+            <column name="login">admin</column>
+            <column name="password">password</column>
+            <column name="nickname">Glorious Admin</column>
+            <column name="role">admin</column>
+            <column name="note">Just a dummy admin user.</column>
+        </insert>
+        <insert tableName="users">
+            <column name="login">reader</column>
+            <column name="password">password</column>
+            <column name="nickname">Pathetic reader</column>
+            <column name="role">reader</column>
+            <column name="note">Just a dummy reader user.</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
