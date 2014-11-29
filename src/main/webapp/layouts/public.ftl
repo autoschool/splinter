@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
     <div id="wrap">
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -32,13 +33,14 @@
                             <a href="/posts/">Все посты</a>
                         </li>
                         <li>
-                            <a href="/authors/">Авторы</a>
+                            <a href="/users/">Авторы</a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/about">О проекте</a></li>
-                        <li><a href="/login/" data-toggle="modal" data-target="#authForm">Вход</a></li>
+                        <#--<li><a href="/login/" data-toggle="modal" data-target="#authForm">Вход</a></li>-->
+                        <li><a href="/signin">Вход</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Iasmani Pinazo <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="download">

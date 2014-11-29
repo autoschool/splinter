@@ -16,4 +16,5 @@
     <include file="changelog-008-update-users-table-with-avatars.xml" relativeToChangelogFile="true"/>
     -->
     <include file="changelog-009-update-posts-table-fix-timestamp-columns.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-010-update-users-table-structure.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -9,10 +9,12 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.yandex.autoschool.splinter.config.FilterPriorities;
 import ru.yandex.autoschool.splinter.config.ServerConfig;
 import ru.yandex.autoschool.splinter.config.database.AbstractDatabaseConfig.DRIVER;
 import ru.yandex.autoschool.splinter.config.database.DatabaseConfig;
 
+import javax.annotation.Priority;
 import javax.sql.DataSource;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -29,6 +31,7 @@ import static java.lang.String.format;
  * @version %I%, %G%
  * @since 1.0
  */
+@Priority(FilterPriorities.DBCONNECTION)
 @Provider
 @SuppressWarnings("unused")
 public class DatabaseProvider implements ContainerRequestFilter {

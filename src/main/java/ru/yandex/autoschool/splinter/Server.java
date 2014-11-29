@@ -2,6 +2,7 @@ package ru.yandex.autoschool.splinter;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
+import ru.yandex.autoschool.splinter.service.AuthProvider;
 import ru.yandex.autoschool.splinter.service.DatabaseProvider;
 
 import javax.ws.rs.container.DynamicFeature;
@@ -22,6 +23,7 @@ public class Server extends ResourceConfig {
             @Override
             public void configure(ResourceInfo resourceInfo, FeatureContext context) {
                 context.register(DatabaseProvider.class);
+                context.register(AuthProvider.class);
             }
         });
 
