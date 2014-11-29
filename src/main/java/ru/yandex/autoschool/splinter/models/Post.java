@@ -3,6 +3,7 @@ package ru.yandex.autoschool.splinter.models;
 import org.javalite.activejdbc.Model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Etki {@literal <etki@etki.name>}
@@ -31,5 +32,9 @@ public class Post extends Model {
     }
     public Timestamp getCreatedAt() {
         return getTimestamp("created_at");
+    }
+    protected void beforeSave() {
+        Date now = new Date();
+        set("updated_at", new Timestamp(now.getTime()));
     }
 }
