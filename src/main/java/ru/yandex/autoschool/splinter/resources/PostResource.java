@@ -1,12 +1,10 @@
 package ru.yandex.autoschool.splinter.resources;
 
-import org.apache.log4j.BasicConfigurator;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
@@ -31,14 +29,10 @@ public class PostResource {
     @Path("/")
     @Template(name = "/templates/post/list.ftl")
     public Map listAction(@DefaultValue("1") @QueryParam("page") int page) {
-        Paginator p = new Paginator(Post.class, 3, "*").orderBy("created_at desc");
-        int pageCount = (int)p.pageCount();
-        if (pageCount == 0 || page < 1) {
-            page = 1;
-        } else if (page > pageCount) {
-            page = pageCount;
-        }
-        LazyList posts = p.getPage(page);
+        Paginator p = new Paginator(Post.class, ApplicationConfig.POSTS_PER_PAGE, "*").orderBy("created_at desc");
+        int pageCount = Math.max((int) p.pageCount(), 1);
+        int pageNumber = (page > pageCount) ? pageCount : Math.max(1, page);
+        LazyList posts = p.getPage(pageNumber);
 
         String linkUrl = "/posts/";
 
@@ -47,7 +41,7 @@ public class PostResource {
 
         Map<String, Object> pagination = new HashMap();
         root.put("pagination", pagination);
-        pagination.put("currentPage", page);
+        pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
         pagination.put("linkUrl", linkUrl);
 

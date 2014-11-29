@@ -2,6 +2,7 @@ package ru.yandex.autoschool.splinter.resources;
 
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
+import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Post;
 
 import javax.ws.rs.GET;
@@ -23,7 +24,7 @@ public class IndexResource {
     @Path("/")
     @Template(name = "/templates/index/index.ftl")
     public List<Post> indexAction() {
-        return Post.findAll().limit(3).orderBy("created_at desc");
+        return Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc");
     }
 
     @GET
