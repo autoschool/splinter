@@ -25,7 +25,7 @@ import java.util.Map;
 @Produces(MediaType.TEXT_HTML)
 @ErrorTemplate(name = "/templates/error.ftl")
 public class PostResource {
-
+    private static final String RESOURCE_PATH = "/posts/";
     @GET
     @Path("/")
     @Template(name = "/templates/post/list.ftl")
@@ -35,8 +35,6 @@ public class PostResource {
         int pageNumber = (page > pageCount) ? pageCount : Math.max(1, page);
         LazyList posts = p.getPage(pageNumber);
 
-        String linkUrl = "/posts/";
-
         Map root = new HashMap();
         root.put("model", posts);
 
@@ -45,7 +43,7 @@ public class PostResource {
         root.put("markdownize", new MarkdownMethod());
         pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
-        pagination.put("linkUrl", linkUrl);
+        pagination.put("linkUrl", RESOURCE_PATH);
 
         return root;
     }
@@ -82,7 +80,7 @@ public class PostResource {
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();
-        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        URI targetURIForRedirection = URI.create(RESOURCE_PATH + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
     @POST
@@ -94,7 +92,7 @@ public class PostResource {
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();
-        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        URI targetURIForRedirection = URI.create(RESOURCE_PATH + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
     @POST

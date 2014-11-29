@@ -8,6 +8,7 @@ import static java.lang.String.format;
  * @since 1.0
  */
 public class H2UrlGenerator {
+    private H2UrlGenerator() {}
     public static String getInMemoryDbUrl(String dbName) {
         return format("jdbc:h2:mem:%s", dbName);
     }

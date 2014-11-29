@@ -6,5 +6,6 @@ package ru.yandex.autoschool.splinter.config;
  * @since 1.0
  */
 public class ApplicationConfig {
-    public final static int POSTS_PER_PAGE = 3;
+    private ApplicationConfig() {}
+    public static final int POSTS_PER_PAGE = 3;
 }

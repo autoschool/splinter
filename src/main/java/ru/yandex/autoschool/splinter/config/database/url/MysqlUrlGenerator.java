@@ -8,6 +8,7 @@ import static java.lang.String.format;
  * @since 1.0
  */
 public class MysqlUrlGenerator {
+    private MysqlUrlGenerator() {}
     public static String getNetworkDbUrl(String host, String dbName) {
         return format("jdbc:mysql://%s/%s", host, dbName);
     }

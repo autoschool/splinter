@@ -72,6 +72,7 @@ public class DatabaseProvider implements ContainerRequestFilter {
         }
     }
     private static DataSource getDataSource(DRIVER driver, String url, String user, String password) {
+        DataSource dataSource;
         switch (driver) {
             case H2:
                 JdbcDataSource h2DataSource = new JdbcDataSource();
@@ -100,6 +101,8 @@ public class DatabaseProvider implements ContainerRequestFilter {
                     break;
                 case H2:
                     Base.open(org.h2.Driver.class.getName(), dbUrl, user, password);
+                default:
+                    throw new IllegalArgumentException("Unknown database driver");
             }
         }
     }
@@ -117,18 +120,6 @@ public class DatabaseProvider implements ContainerRequestFilter {
     private static JdbcConnection getLiquibaseConnection() throws SQLException {
         DataSource dataSource = getDataSource(dbDriver, dbUrl, dbUser, dbPassword);
         return new JdbcConnection(dataSource.getConnection());
-    }
-
-    private static String getDbName() {
-        return config.getName();
-    }
-
-    private static String getDbUser() {
-        return dbUser;
-    }
-
-    private static String getDbPassword() {
-        return dbPassword;
     }
 
     @Override
