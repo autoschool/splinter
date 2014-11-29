@@ -1,8 +1,8 @@
 package ru.yandex.autoschool.splinter;
 
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
 import ru.yandex.autoschool.splinter.service.DatabaseProvider;
+import ru.yandex.autoschool.splinter.utils.freemarker.FreemarkerMvcFeature;
 
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
