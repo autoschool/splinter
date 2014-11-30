@@ -1,14 +1,13 @@
 package ru.yandex.autoschool.splinter.resources;
 
-import org.apache.log4j.BasicConfigurator;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
+import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,30 +25,25 @@ import java.util.Map;
 @Produces(MediaType.TEXT_HTML)
 @ErrorTemplate(name = "/templates/error.ftl")
 public class PostResource {
-
+    private static final String RESOURCE_PATH = "/posts/";
     @GET
     @Path("/")
     @Template(name = "/templates/post/list.ftl")
     public Map listAction(@DefaultValue("1") @QueryParam("page") int page) {
-        Paginator p = new Paginator(Post.class, 3, "*").orderBy("created_at desc");
-        int pageCount = (int)p.pageCount();
-        if (pageCount == 0 || page < 1) {
-            page = 1;
-        } else if (page > pageCount) {
-            page = pageCount;
-        }
-        LazyList posts = p.getPage(page);
-
-        String linkUrl = "/posts/";
+        Paginator p = new Paginator(Post.class, ApplicationConfig.POSTS_PER_PAGE, "*").orderBy("created_at desc");
+        int pageCount = Math.max((int) p.pageCount(), 1);
+        int pageNumber = (page > pageCount) ? pageCount : Math.max(1, page);
+        LazyList posts = p.getPage(pageNumber);
 
         Map root = new HashMap();
         root.put("model", posts);
 
         Map<String, Object> pagination = new HashMap();
         root.put("pagination", pagination);
-        pagination.put("currentPage", page);
+        root.put("markdownize", new MarkdownMethod());
+        pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
-        pagination.put("linkUrl", linkUrl);
+        pagination.put("linkUrl", RESOURCE_PATH);
 
         return root;
     }
@@ -62,8 +56,12 @@ public class PostResource {
         if (post == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        
+        Map root = new HashMap();
+        root.put("model", post);
+        root.put("markdownize", new MarkdownMethod());
 
-        return Response.ok(post).build();
+        return Response.ok(root).build();
     }
 
     @GET
@@ -82,7 +80,7 @@ public class PostResource {
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();
-        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        URI targetURIForRedirection = URI.create(RESOURCE_PATH + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
     @POST
@@ -94,7 +92,7 @@ public class PostResource {
         post.setTitle(title);
         post.setContent(content);
         post.saveIt();
-        URI targetURIForRedirection = URI.create("/posts/" + post.getId());
+        URI targetURIForRedirection = URI.create(RESOURCE_PATH + post.getId());
         return Response.seeOther(targetURIForRedirection).build();
     }
     @POST
@@ -112,12 +110,13 @@ public class PostResource {
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Post commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
+    public Response commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
         Post post = Post.findById(id);
         Comment comment = new Comment();
         comment.setContent(commentContent);
         post.add(comment);
         post.saveIt();
-        return post;
+        URI targetURIForRedirection= URI.create("/posts/"+id);
+        return Response.seeOther(targetURIForRedirection).build();
     }
 }

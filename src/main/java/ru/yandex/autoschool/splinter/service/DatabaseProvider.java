@@ -34,8 +34,12 @@ import static java.lang.String.format;
 @Priority(FilterPriorities.DBCONNECTION)
 @Provider
 @SuppressWarnings("unused")
+@edu.umd.cs.findbugs.annotations.SuppressWarnings(
+        value = "org.sonar.java.checks.SystemExitCalledCheck",
+        justification = "Halts whole application in case database is not available and there's no point in going further"
+)
 public class DatabaseProvider implements ContainerRequestFilter {
-    private final static Logger logger = LoggerFactory.getLogger(DatabaseProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseProvider.class);
     private static DatabaseConfig config;
     private static String dbUrl;
     private static DRIVER dbDriver;
@@ -52,9 +56,9 @@ public class DatabaseProvider implements ContainerRequestFilter {
             dbUser = config.getUser();
             dbPassword = config.getPassword();
 
-            logger.info(format("Starting embedded database with url '%s' ...", dbUrl));
+            LOGGER.info(format("Starting embedded database with url '%s' ...", dbUrl));
             String changeLogPath = getChangeLogLocation();
-            logger.info(format("Using `%s` as changelog path", changeLogPath));
+            LOGGER.info(format("Using `%s` as changelog path", changeLogPath));
             Liquibase liquibaseMigrationManager = new Liquibase(
                     changeLogPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
             );
@@ -66,11 +70,12 @@ public class DatabaseProvider implements ContainerRequestFilter {
             liquibaseFixtureImporter.update("");
             openConnection();
         } catch (Exception e) {
-            logger.error("Failed to start embedded database", e);
+            LOGGER.error("Failed to start embedded database", e);
             System.exit(-1);
         }
     }
     private static DataSource getDataSource(DRIVER driver, String url, String user, String password) {
+        DataSource dataSource;
         switch (driver) {
             case H2:
                 JdbcDataSource h2DataSource = new JdbcDataSource();
@@ -99,6 +104,9 @@ public class DatabaseProvider implements ContainerRequestFilter {
                     break;
                 case H2:
                     Base.open(org.h2.Driver.class.getName(), dbUrl, user, password);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown database driver");
             }
         }
     }
@@ -116,18 +124,6 @@ public class DatabaseProvider implements ContainerRequestFilter {
     private static JdbcConnection getLiquibaseConnection() throws SQLException {
         DataSource dataSource = getDataSource(dbDriver, dbUrl, dbUser, dbPassword);
         return new JdbcConnection(dataSource.getConnection());
-    }
-
-    private static String getDbName() {
-        return config.getName();
-    }
-
-    private static String getDbUser() {
-        return dbUser;
-    }
-
-    private static String getDbPassword() {
-        return dbPassword;
     }
 
     @Override

@@ -3,12 +3,14 @@ package ru.yandex.autoschool.splinter.models;
 import org.javalite.activejdbc.Model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Etki {@literal <etki@etki.name>}
  * @version %I%, %G%
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public class Post extends Model {
     public Integer getId() {
         return getInteger("id");
@@ -25,12 +27,14 @@ public class Post extends Model {
     public void setContent(String content) {
         setString("content", content);
     }
-    public Timestamp getUpdatedAt()
-    {
+    public Timestamp getUpdatedAt() {
         return getTimestamp("updated_at");
     }
-    public Timestamp getCreatedAt()
-    {
+    public Timestamp getCreatedAt() {
         return getTimestamp("created_at");
+    }
+    protected void beforeSave() {
+        Date now = new Date();
+        set("updated_at", new Timestamp(now.getTime()));
     }
 }

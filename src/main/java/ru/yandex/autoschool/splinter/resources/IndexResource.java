@@ -2,13 +2,16 @@ package ru.yandex.autoschool.splinter.resources;
 
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
+import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Post;
+import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Etki {@literal <etki@etki.name>}
@@ -22,8 +25,11 @@ public class IndexResource {
     @GET
     @Path("/")
     @Template(name = "/templates/index/index.ftl")
-    public List<Post> indexAction() {
-        return Post.findAll().limit(3).orderBy("created_at desc");
+    public Map indexAction() {
+        Map root = new HashMap();
+        root.put("markdownize", new MarkdownMethod());
+        root.put("model", Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc"));
+        return root;
     }
 
     @GET

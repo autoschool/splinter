@@ -1,7 +1,5 @@
 package ru.yandex.autoschool.splinter.utils;
 
-import java.lang.Character;
-import java.lang.Math;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
