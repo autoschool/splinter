@@ -101,6 +101,7 @@ public class DatabaseProvider implements ContainerRequestFilter {
                     break;
                 case H2:
                     Base.open(org.h2.Driver.class.getName(), dbUrl, user, password);
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown database driver");
             }
