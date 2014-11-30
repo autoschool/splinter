@@ -9,8 +9,8 @@
             <div class="modal-body">
                 <form class="form" role="form" action="/posts/${model.id}/edit" method="POST">
                     <div class="form-group">
-                        <textarea class="form-control" rows="1" name="title" placeholder=${model.title}></textarea>
-                        <textarea class="form-control" rows="5" name="content" placeholder=${model.content}></textarea>
+                        <textarea class="form-control" rows="1" name="title" required="true" placeholder=${model.title}></textarea>
+                        <textarea class="form-control" rows="5" name="content" required="true" placeholder=${model.content}></textarea>
                     </div>
                     <p>Do you want to save changes in this post?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>

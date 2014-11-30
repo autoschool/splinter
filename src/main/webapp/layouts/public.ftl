@@ -11,6 +11,7 @@
     <!--[if lt IE 9]>
     <script src="/public/js/vendor/html5shiv.js"></script>
     <script src="/public/js/vendor/respond.min.js"></script>
+    <script src="/public/js/vendor/jqBootStrapValidation.js"></script>
     <![endif]-->
 </head>
 
