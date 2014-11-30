@@ -110,12 +110,13 @@ public class PostResource {
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Post commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
+    public Response commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
         Post post = Post.findById(id);
         Comment comment = new Comment();
         comment.setContent(commentContent);
         post.add(comment);
         post.saveIt();
-        return post;
+        URI targetURIForRedirection= URI.create("/posts/"+id);
+        return Response.seeOther(targetURIForRedirection).build();
     }
 }
