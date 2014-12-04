@@ -4,7 +4,6 @@ import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Post;
-import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,7 +26,6 @@ public class IndexResource {
     @Template(name = "/templates/index/index.ftl")
     public Map indexAction() {
         Map root = new HashMap();
-        root.put("markdownize", new MarkdownMethod());
         root.put("model", Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc"));
         return root;
     }

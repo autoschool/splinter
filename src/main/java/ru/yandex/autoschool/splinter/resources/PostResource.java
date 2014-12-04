@@ -7,7 +7,6 @@ import org.javalite.activejdbc.Paginator;
 import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
-import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,7 +39,6 @@ public class PostResource {
 
         Map<String, Object> pagination = new HashMap();
         root.put("pagination", pagination);
-        root.put("markdownize", new MarkdownMethod());
         pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
         pagination.put("linkUrl", RESOURCE_PATH);
@@ -59,7 +57,6 @@ public class PostResource {
         
         Map root = new HashMap();
         root.put("model", post);
-        root.put("markdownize", new MarkdownMethod());
 
         return Response.ok(root).build();
     }
