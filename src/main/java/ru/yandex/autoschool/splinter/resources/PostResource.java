@@ -8,6 +8,8 @@ import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -72,7 +74,10 @@ public class PostResource {
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Response saveAction(@FormParam("title") String title, @FormParam("content") String content) {
+    public Response saveAction(@FormParam("title")
+                               @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String title
+                              ,@FormParam("content")
+                               @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String content) {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
@@ -84,7 +89,11 @@ public class PostResource {
     @Path("/{id}/edit")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name= "/templates/post/single.ftl")
-    public Response editPostAction(@PathParam("id") int id, @FormParam("title") String title, @FormParam("content") String content){
+    public Response editPostAction(@PathParam("id") int id,
+                                   @FormParam("title")
+                                   @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String title,
+                                   @FormParam("content")
+                                   @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String content){
         Post post=Post.findById(id);
         post.setTitle(title);
         post.setContent(content);
@@ -96,7 +105,7 @@ public class PostResource {
     @Path("/{id}/delete")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name= "/templates/post/single.ftl")
-    public Response deletePostAction(@PathParam("id") int id){
+    public Response deletePostAction(@PathParam("id") @NotNull(message = "not null") int id){
         Post post=Post.findById(id);
         post.delete();
         URI targetURIForRedirection = URI.create("/");
@@ -107,7 +116,9 @@ public class PostResource {
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Template(name = "/templates/post/single.ftl")
-    public Response commentAction(@PathParam("id") int id, @FormParam("content") String commentContent) {
+    public Response commentAction(@PathParam("id")  @NotNull(message = "not null")  int id
+                                  ,@FormParam("content")
+                                   @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String commentContent) {
         Post post = Post.findById(id);
         Comment comment = new Comment();
         comment.setContent(commentContent);

@@ -11,7 +11,7 @@
         <div class="post-body">
         ${model.content}
             <div class="btn-group btn-group-sm pull-right">
-                <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Edit Post</a>
+                <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" >Edit Post</a>
                 <a href="#deleteModal" role="button" class="btn btn-large btn-danger" data-toggle="modal">Delete</a>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <div class="control-group">
                     <label class="control-label" for="commentContent">Comment</label>
                     <div class="controls">
-                        <textarea name="content" id="commentContent" rows="8" class="form-control" placeholder="comment" required="true"></textarea>
+                        <textarea name="content" id="commentContent" rows="8" class="form-control" placeholder="comment" required></textarea>
                     </div>
                 </div>
                 <div class="form-actions">
