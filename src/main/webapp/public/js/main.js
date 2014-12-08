@@ -29,7 +29,7 @@ jQuery(function ($) {
     var logger = new Logger;
     
     logger.info('Init');
-    logger.debug('Timezone offset', (new Date().getTimezoneOffset() / 60).toString(), hours);
+    logger.debug('Timezone offset', (new Date().getTimezoneOffset() / 60).toString(), 'hours');
     //jQuery to collapse the navbar on scroll
     $(window).scroll(function() {
         if ($(".navbar").offset().top > 50) {
@@ -54,7 +54,7 @@ jQuery(function ($) {
     $('#back-to-top').click(function(){
         $('body').animate({
             scrollTop: 0
-        },'slow');
+        }, 'slow');
         return false;
     });
     
