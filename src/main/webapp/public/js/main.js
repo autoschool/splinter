@@ -3,31 +3,30 @@ jQuery(function ($) {
     var debug = true;
     function Logger() {
         function log(level, data) {
-            if (console && console.log && level && data) {
+            if (debug && console && console.log && level && data) {
                 var args = Array.prototype.slice.call(data, 0);
                 // quick padding hack
-                while ((level += ' ').length < 8);
+                while ((level += ' ').length < 8); // NOSONAR
                 var signature = level + ' ' + new Date().toLocaleString() + ':';
-                while ((signature += ' ').length < 32);
+                while ((signature += ' ').length < 32); // NOSONAR
                 args.unshift(signature);
                 console.log.apply(console, args);
             }
         }
         this.debug = function () {
             log('DEBUG', arguments);
-        }
+        };
         this.info = function () {
             log('INFO', arguments);
-        }
+        };
         this.warning = function () {
             log('WARNING', arguments);
-        }
+        };
         this.error = function () {
             log('ERROR', arguments);
-        }
+        };
     }
     var logger = new Logger;
-    
     logger.info('Init');
     logger.debug('Timezone offset', (new Date().getTimezoneOffset() / 60).toString(), 'hours');
     //jQuery to collapse the navbar on scroll
@@ -38,11 +37,9 @@ jQuery(function ($) {
             $(".navbar-fixed-top").removeClass("top-nav-collapse");
         }
     });
-    
     /* ===============================================
         Scroll to Top Plugin
     =============================================== */
-    
     $(window).scroll(function() {
         if( $(window).scrollTop() > 500 ) {
             $('#back-to-top').fadeIn(500);
@@ -50,14 +47,12 @@ jQuery(function ($) {
             $('#back-to-top').fadeOut(500);
         }
     });
-    
     $('#back-to-top').click(function(){
         $('body').animate({
             scrollTop: 0
         }, 'slow');
         return false;
     });
-    
     /* ===============================================
         Layout search form
     =============================================== */
@@ -70,6 +65,5 @@ jQuery(function ($) {
             $form.addClass('active');
             $input.focus();
         });
-    
     });
 });
