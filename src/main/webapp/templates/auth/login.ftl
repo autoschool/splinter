@@ -5,6 +5,11 @@
     <div class="col-md-offset-4 col-md-4">
         <form class="form" role="form" action="/signin" method="post">
             <div class="page-header">
+                <#if error??>
+                    <div class="alert alert-danger" role="alert">
+                        ${error}
+                    </div>
+                </#if>
                 <div class="form-group">
                     <input type="text" class="form-control" id="login" name="email"
                            placeholder="Login">
