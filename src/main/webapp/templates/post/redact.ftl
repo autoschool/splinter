@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="model" type="ru.yandex.autoschool.splinter.models.Post" -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="authFormLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="authFormLabel" aria-hidden="true"
+     xmlns="http://www.w3.org/1999/html">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,8 +10,8 @@
             <div class="modal-body">
                 <form class="form" role="form" action="/posts/${model.id}/edit" method="POST">
                     <div class="form-group">
-                        <textarea class="form-control" rows="1" name="title" placeholder=${model.title}></textarea>
-                        <textarea class="form-control" rows="5" name="content" placeholder=${model.content}></textarea>
+                        <input type="text" class="form-control" rows="1" pattern="^(?!\s*$).+" name="title"  required placeholder=${model.title}>
+                        <textarea class="form-control" rows="5" name="content" required  placeholder=${model.content}></textarea>
                     </div>
                     <p>Do you want to save changes in this post?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>

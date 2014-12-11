@@ -9,7 +9,7 @@
     </header>
     <div class="entry-description">
         <p>
-        ${markdownize(post.content)}
+        ${post.content}
         </p>
     </div>
 </section>

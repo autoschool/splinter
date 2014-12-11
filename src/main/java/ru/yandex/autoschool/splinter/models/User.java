@@ -71,4 +71,9 @@ public class User extends Model implements Principal {
         // more functionality to come
         // ¯\_(ツ)_/¯
     }
+
+    public static User findByUnknownIdentifierAndPassword(String identifier, String passwordHash)
+    {
+        return findFirst("(login = ? OR email = ?) AND password = ?", identifier, identifier, passwordHash);
+    }
 }

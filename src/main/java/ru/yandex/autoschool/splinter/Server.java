@@ -2,6 +2,7 @@ package ru.yandex.autoschool.splinter;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
 import ru.yandex.autoschool.splinter.service.AuthProvider;
 import ru.yandex.autoschool.splinter.service.DatabaseProvider;
@@ -28,6 +29,9 @@ public class Server extends ResourceConfig {
             }
         });
 
+        property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+        property(ServerProperties.BV_DISABLE_VALIDATE_ON_EXECUTABLE_OVERRIDE_CHECK, true);
+        
         register(FreemarkerMvcFeature.class);
 
         register(new DynamicFeature() {

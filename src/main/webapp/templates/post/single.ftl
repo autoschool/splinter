@@ -1,6 +1,7 @@
 <#-- @ftlvariable name="model" type="ru.yandex.autoschool.splinter.models.Post" -->
 <#import "/layouts/public.ftl" as layout />
 <#include "/templates/post/redact.ftl">
+<script src="/public/js/valid/basicValid.js"></script>
 <@layout.layout title="Blog: show post">
 <div class="row">
     <div class="col-md-12">
@@ -8,9 +9,9 @@
             <h2>${model.title}</h2>
         </div>
         <div class="post-body">
-        ${markdownize(model.content)}
+        ${model.content}
             <div class="btn-group btn-group-sm pull-right">
-                <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Edit Post</a>
+                <a href="#editModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" >Edit Post</a>
                 <a href="#deleteModal" role="button" class="btn btn-large btn-danger" data-toggle="modal">Delete</a>
             </div>
         </div>
@@ -29,11 +30,14 @@
                 </ul>
             </div>
 
-            <form class="form" role="form" action="/posts/${model.id}/comment" method="POST">
-                <div class="form-group">
-                    <textarea class="form-control" rows="5" name="content" placeholder="comment"></textarea>
+            <form class="form" role="form" action="/posts/${model.id}/comment" method="POST" >
+                <div class="control-group">
+                    <label class="control-label" for="commentContent">Comment</label>
+                    <div class="controls">
+                        <textarea name="content" id="commentContent" rows="8" class="form-control" placeholder="comment" required></textarea>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="form-actions">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-danger pull-right">comment</button>
                     </div>

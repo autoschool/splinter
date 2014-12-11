@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
 
+import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
 
 /**
  * Created by pacahon on 28.11.14.
@@ -34,7 +35,17 @@ public class AuthResource extends BaseResource {
     @GET
     @Path("/signin")
     @Template(name = "/templates/auth/login.ftl")
-    public ViewData showLoginForm() {
+    public ViewData showLoginForm() throws IOException {
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("userId") != null) {
+            response.sendRedirect("/users/" + (int) session.getAttribute("userId"));
+            return ViewData;
+        }
+        String error = (String) session.getAttribute("error");
+        if (error != null) {
+            ViewData.set("error", error);
+            session.removeAttribute("error");
+        }
         return ViewData;
     }
 
@@ -45,16 +56,24 @@ public class AuthResource extends BaseResource {
     public ViewData loginAction(@FormParam("email") String name,
                                @FormParam("pass") String hash) throws IOException {
 
-        User user = User.findFirst("email = ? and password = ?", name, hash);
+        HttpSession session = request.getSession(true);
 
-        if (user == null) {
-            System.out.println("name or password is wrong");
+        if (session.getAttribute("userId") != null) {
+            response.sendRedirect("/users/" + session.getAttribute("userId"));
             return ViewData;
         }
 
-        HttpSession session = request.getSession(true);
+        User user = User.findByUnknownIdentifierAndPassword(name, hash);
+
+        if (user == null) {
+            LOGGER.info("Received incorrect email-password pair, halting authorization");
+            session.setAttribute("error", "Incorrect login-password pair");
+            response.sendRedirect("/signin");
+            return ViewData;
+        }
+
         session.setAttribute("userId", user.getId());
-        System.out.println("set user_id in session" + user.getId());
+        LOGGER.debug("Saving user ID in session after successful authorization ({}).", user.getId());
 
         response.sendRedirect("/users/" + user.getId());
 

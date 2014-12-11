@@ -7,8 +7,6 @@ import liquibase.resource.FileSystemResourceAccessor;
 import org.apache.log4j.BasicConfigurator;
 import org.h2.jdbcx.JdbcDataSource;
 import org.javalite.activejdbc.Base;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.yandex.autoschool.splinter.config.FilterPriorities;
 import ru.yandex.autoschool.splinter.config.ServerConfig;
 import ru.yandex.autoschool.splinter.config.database.AbstractDatabaseConfig.DRIVER;
@@ -22,6 +20,8 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+
+import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
 
 import static java.lang.String.format;
 
@@ -39,7 +39,6 @@ import static java.lang.String.format;
         justification = "Halts whole application in case database is not available and there's no point in going further"
 )
 public class DatabaseProvider implements ContainerRequestFilter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseProvider.class);
     private static DatabaseConfig config;
     private static String dbUrl;
     private static DRIVER dbDriver;

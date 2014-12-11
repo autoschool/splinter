@@ -12,6 +12,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import java.io.IOException;
 
+import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
+
 /**
  * @author pacahon
  */
@@ -29,8 +31,13 @@ public class AuthProvider implements ContainerRequestFilter {
         System.out.println("auth filter is called");
         User user = null;
         if (userId != null) {
+            LOGGER.debug("Fetched current user ID from session ({})", userId);
             user = User.findById(userId);
-            System.out.println("get user_id from session = " + user.getId());
+            if (user != null) {
+                LOGGER.info("Recognized user `{}` using session", user.getLogin());
+            } else {
+                LOGGER.warn("Couldn't find user using ID from session");
+            }
         }
 
         requestContext.setSecurityContext(new AuthContext(user));
