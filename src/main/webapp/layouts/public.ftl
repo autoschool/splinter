@@ -41,15 +41,19 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/about">О проекте</a></li>
                         <#--<li><a href="/login/" data-toggle="modal" data-target="#authForm">Вход</a></li>-->
-                        <li><a href="/signin">Вход</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Iasmani Pinazo <span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="download">
-                                <li><a href="/profile/"><i class="fa fa-gear"></i> Профиль пользователя</a></li>
-                                <li><a href="/posts/new"><i class="fa fa-plus"></i> Создать пост</a></li>
-                                <li><a href="/logout"><i class="fa fa-sign-out"></i> Выход</a></li>
-                            </ul>
-                        </li>
+
+                        <#if !authUser??>
+                            <li><a href="/signin">Вход</a></li>
+                        <#else>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">${authUser.login} <span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="download">
+                                    <li><a href="/profile/"><i class="fa fa-gear"></i> Профиль пользователя</a></li>
+                                    <li><a href="/posts/new"><i class="fa fa-plus"></i> Создать пост</a></li>
+                                    <li><a href="/signout"><i class="fa fa-sign-out"></i> Выход</a></li>
+                                </ul>
+                            </li>
+                        </#if>
                         <li>
                             <form class="navbar-form" role="search">
                                 <div class="input-group">

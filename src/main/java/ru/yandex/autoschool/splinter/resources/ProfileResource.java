@@ -26,7 +26,7 @@ public class ProfileResource extends BaseResource {
     @GET
     @Path("/")
     @Template(name = "/templates/user/list.ftl")
-    public ViewData showProfileAction() {
+    public ViewData showProfilesListAction() {
         this.ViewData.set("authUser", securityContext.getUserPrincipal());
         this.ViewData.set("users", User.findAll().limit(3).orderBy("created_at desc"));
         return this.ViewData;
@@ -35,7 +35,7 @@ public class ProfileResource extends BaseResource {
     @GET
     @Path("/{id}")
     @Template(name = "/templates/user/profile.ftl")
-    public Response showUserAction(@PathParam("id") int id) {
+    public Response showUserProfileAction(@PathParam("id") int id) {
         User user = User.findById(id);
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

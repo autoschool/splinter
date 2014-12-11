@@ -43,8 +43,6 @@ public class UserDataInterceptor implements WriterInterceptor {
             context.setEntity(new Viewable(templateName, model.getData()));
         }
 
-        System.out.println("INTERCEPTOR CALLED");
-
         context.proceed();
     }
 }
