@@ -22,3 +22,6 @@ nbproject
 ## Local config files
 *.local.properties
 
+# mergetool stuff
+*.orig
+
