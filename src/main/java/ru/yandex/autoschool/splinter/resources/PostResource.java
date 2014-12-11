@@ -8,6 +8,7 @@ import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
+import ru.yandex.autoschool.splinter.view.ViewData;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -23,29 +24,27 @@ import java.util.Map;
  */
 @Path("/posts/")
 @Produces(MediaType.TEXT_HTML)
-@ErrorTemplate(name = "/templates/error.ftl")
-public class PostResource {
+public class PostResource extends BaseResource {
     private static final String RESOURCE_PATH = "/posts/";
     @GET
     @Path("/")
     @Template(name = "/templates/post/list.ftl")
-    public Map listAction(@DefaultValue("1") @QueryParam("page") int page) {
+    public ViewData listAction(@DefaultValue("1") @QueryParam("page") int page) {
         Paginator p = new Paginator(Post.class, ApplicationConfig.POSTS_PER_PAGE, "*").orderBy("created_at desc");
         int pageCount = Math.max((int) p.pageCount(), 1);
         int pageNumber = (page > pageCount) ? pageCount : Math.max(1, page);
         LazyList posts = p.getPage(pageNumber);
 
-        Map root = new HashMap();
-        root.put("model", posts);
+        ViewData.set("model", posts);
 
         Map<String, Object> pagination = new HashMap();
-        root.put("pagination", pagination);
-        root.put("markdownize", new MarkdownMethod());
         pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
         pagination.put("linkUrl", RESOURCE_PATH);
+        ViewData.set("pagination", pagination);
+        ViewData.set("markdownize", new MarkdownMethod());
 
-        return root;
+        return ViewData;
     }
 
     @GET
@@ -56,19 +55,18 @@ public class PostResource {
         if (post == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        
-        Map root = new HashMap();
-        root.put("model", post);
-        root.put("markdownize", new MarkdownMethod());
 
-        return Response.ok(root).build();
+        ViewData.set("model", post);
+        ViewData.set("markdownize", new MarkdownMethod());
+        return Response.ok(ViewData).build();
     }
 
     @GET
     @Path("/new")
     @Template(name = "/templates/post/form.ftl")
-    public Post formAction() {
-        return new Post();
+    public Response formAction() {
+        ViewData.set("model", new Post());
+        return Response.ok(ViewData).build();
     }
 
     @POST

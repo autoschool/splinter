@@ -26,7 +26,7 @@ public class AuthProvider implements ContainerRequestFilter {
 
         HttpSession session = request.getSession(true);
         Object userId = session.getAttribute("userId");
-
+        System.out.println("auth filter is called");
         User user = null;
         if (userId != null) {
             user = User.findById(userId);

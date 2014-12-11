@@ -6,11 +6,11 @@
         <form class="form" role="form" action="/signin" method="post">
             <div class="page-header">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="login" name="email"
+                    <input type="text" class="form-control" id="login" name="email" value="admin@localhost.ru"
                            placeholder="Login">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="pass" name="pass"
+                    <input type="password" class="form-control" id="pass" name="pass" value="password"
                            placeholder="Password">
                 </div>
             </div>

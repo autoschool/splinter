@@ -1,10 +1,10 @@
 package ru.yandex.autoschool.splinter.resources;
 
-import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Post;
 import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
+import ru.yandex.autoschool.splinter.view.ViewData;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,23 +20,21 @@ import java.util.Map;
  */
 @Path("/")
 @Produces(MediaType.TEXT_HTML)
-@ErrorTemplate(name = "/templates/error.ftl")
-public class IndexResource {
+public class IndexResource extends BaseResource {
     @GET
     @Path("/")
     @Template(name = "/templates/index/index.ftl")
-    public Map indexAction() {
-        Map root = new HashMap();
-        root.put("markdownize", new MarkdownMethod());
-        root.put("model", Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc"));
-        return root;
+    public ViewData indexAction() {
+        ViewData.set("markdownize", new MarkdownMethod());
+        ViewData.set("model", Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc"));
+        return ViewData;
     }
 
     @GET
     @Path("/about")
     @Template(name = "/templates/index/about.ftl")
-    public String aboutAction() {
-        return "about page";
+    public ViewData aboutAction() {
+        return ViewData;
     }
 
 }

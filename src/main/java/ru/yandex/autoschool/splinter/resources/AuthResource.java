@@ -3,6 +3,7 @@ package ru.yandex.autoschool.splinter.resources;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import ru.yandex.autoschool.splinter.models.User;
+import ru.yandex.autoschool.splinter.view.ViewData;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by pacahon on 28.11.14.
@@ -29,27 +28,28 @@ public class AuthResource extends BaseResource {
     HttpServletRequest request;
     @Context
     HttpServletResponse response;
+    @Context
+    SecurityContext securityContext;
 
     @GET
     @Path("/signin")
     @Template(name = "/templates/auth/login.ftl")
-    public Map showLoginForm() {
-        this.viewData.put("authUser", (User) securityContext.getUserPrincipal());
-        return this.viewData;
+    public ViewData showLoginForm() {
+        return ViewData;
     }
 
 
     @POST
     @Path("/signin")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public String loginAction(@FormParam("email") String name,
+    public ViewData loginAction(@FormParam("email") String name,
                                @FormParam("pass") String hash) throws IOException {
 
         User user = User.findFirst("email = ? and password = ?", name, hash);
 
         if (user == null) {
             System.out.println("name or password is wrong");
-            return "";
+            return ViewData;
         }
 
         HttpSession session = request.getSession(true);
@@ -58,12 +58,12 @@ public class AuthResource extends BaseResource {
 
         response.sendRedirect("/users/" + user.getId());
 
-        return "";
+        return ViewData;
     }
 
     @GET
     @Path("/signout")
-    public String logoutAction() throws IOException {
+    public ViewData logoutAction() throws IOException {
         HttpSession session = request.getSession(false);
         if(session != null) {
             session.invalidate();
@@ -71,6 +71,6 @@ public class AuthResource extends BaseResource {
 
         response.sendRedirect("/");
 
-        return "";
+        return ViewData;
     }
 }
