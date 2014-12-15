@@ -1,8 +1,8 @@
 package ru.yandex.autoschool.splinter.context;
 
 
-import ru.yandex.autoschool.splinter.interfaces.UserInterface;
 import ru.yandex.autoschool.splinter.models.User;
+
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 
