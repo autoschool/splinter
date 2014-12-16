@@ -15,15 +15,13 @@ import static org.hamcrest.core.Is.is;
  */
 public class AboutPageTest extends JerseyTest {
     @Override
-    protected Application configure(){
+    protected Application configure() {
         return new ResourceConfig(IndexResource.class);
     }
 
     @Test
     public void testAboutPage(){
         final String about = target("/about").request().get(String.class);
-        assertThat(about,is("about page"));
-
-
+        assertThat(about, is("about page"));
     }
 }

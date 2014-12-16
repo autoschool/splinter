@@ -42,7 +42,6 @@ public class IndexResource extends BaseResource {
     @Path("/")
     @Template(name = "/templates/index/index.ftl")
     public ViewData indexAction() {
-        ViewData.set("markdownize", new MarkdownMethod());
         ViewData.set("model", Post.findAll().limit(ApplicationConfig.POSTS_PER_PAGE).orderBy("created_at desc"));
         return ViewData;
     }
