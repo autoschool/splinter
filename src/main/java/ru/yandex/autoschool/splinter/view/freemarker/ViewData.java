@@ -1,11 +1,4 @@
-package ru.yandex.autoschool.splinter.view;
-
-import org.glassfish.jersey.message.internal.DocumentProvider;
-
-import javax.ws.rs.ext.MessageBodyWriter;
-import javax.ws.rs.ext.Provider;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+package ru.yandex.autoschool.splinter.view.freemarker;
 import java.util.HashMap;
 
 /**
@@ -22,12 +15,12 @@ public class ViewData {
     public void set(String key, Object value) {
         this.data.put(key, value);
     }
-    
+
     public HashMap<String, Object> getData() {
         return this.data;
     }
-    
+
     public void Type() {
-        
+
     }
 }

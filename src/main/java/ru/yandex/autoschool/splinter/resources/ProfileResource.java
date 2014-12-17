@@ -9,7 +9,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import ru.yandex.autoschool.splinter.view.ViewData;
+import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 
 /**
@@ -25,7 +25,7 @@ public class ProfileResource extends BaseResource {
 
     @GET
     @Path("/")
-    @Template(name = "/templates/user/list.ftl")
+    @Template(name = "/user/list")
     public ViewData showProfilesListAction() {
         this.ViewData.set("authUser", securityContext.getUserPrincipal());
         this.ViewData.set("users", User.findAll().limit(3).orderBy("created_at desc"));
@@ -34,7 +34,7 @@ public class ProfileResource extends BaseResource {
 
     @GET
     @Path("/{id}")
-    @Template(name = "/templates/user/profile.ftl")
+    @Template(name = "/user/profile")
     public Response showUserProfileAction(@PathParam("id") int id) {
         User user = User.findById(id);
         if (user == null) {
