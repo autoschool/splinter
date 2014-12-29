@@ -17,6 +17,10 @@
             <param-name>jersey.config.server.mvc.templateBasePath.freemarker</param-name>
             <param-value>templates</param-value>
         </init-param>
+        <init-param>
+            <param-name>jersey.config.server.mvc.factory.freemarker</param-name>
+            <param-value>ru.yandex.autoschool.splinter.view.freemarker.TemplateObjectFactory</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>

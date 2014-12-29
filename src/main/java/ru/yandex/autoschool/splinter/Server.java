@@ -13,6 +13,7 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.ext.WriterInterceptor;
 import ru.yandex.autoschool.splinter.interceptions.UserDataInterceptor;
+
 /**
  * @author eroshenkoam
  * @version %I%, %G%
