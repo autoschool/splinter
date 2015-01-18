@@ -3,7 +3,7 @@ package ru.yandex.autoschool.splinter.resources;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import ru.yandex.autoschool.splinter.models.User;
-import ru.yandex.autoschool.splinter.view.ViewData;
+import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
  */
 @Path("/")
 @Produces(MediaType.TEXT_HTML)
-@ErrorTemplate(name = "/templates/error.ftl")
+@ErrorTemplate(name = "/error")
 public class AuthResource extends BaseResource {
 
     @Context
@@ -34,7 +34,7 @@ public class AuthResource extends BaseResource {
 
     @GET
     @Path("/signin")
-    @Template(name = "/templates/auth/login.ftl")
+    @Template(name = "/auth/login")
     public ViewData showLoginForm() throws IOException {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userId") != null) {

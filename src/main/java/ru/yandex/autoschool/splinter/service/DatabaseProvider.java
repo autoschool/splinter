@@ -4,7 +4,6 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.FileSystemResourceAccessor;
-import org.apache.log4j.BasicConfigurator;
 import org.h2.jdbcx.JdbcDataSource;
 import org.javalite.activejdbc.Base;
 import ru.yandex.autoschool.splinter.config.FilterPriorities;
@@ -46,7 +45,6 @@ public class DatabaseProvider implements ContainerRequestFilter {
     private static String dbPassword;
 
     static {
-        BasicConfigurator.configure();
         ServerConfig serverConfig = new ServerConfig();
         config = serverConfig.getDatabaseConfig();
         try {

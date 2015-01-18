@@ -1,12 +1,11 @@
-package ru.yandex.autoschool.splinter.view;
-
+package ru.yandex.autoschool.splinter.view.freemarker;
 import java.util.HashMap;
 
 /**
  * Created by pacahon on 11.12.14.
  */
 public class ViewData {
-    public HashMap<String, Object> data;
+    private HashMap<String, Object> data;
 
     public ViewData() {
         this.data = new HashMap<>();
@@ -19,5 +18,9 @@ public class ViewData {
 
     public HashMap<String, Object> getData() {
         return this.data;
+    }
+
+    public void Type() {
+
     }
 }

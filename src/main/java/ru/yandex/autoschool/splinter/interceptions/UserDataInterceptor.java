@@ -13,7 +13,7 @@ import javax.annotation.Priority;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 import ru.yandex.autoschool.splinter.models.User;
-import ru.yandex.autoschool.splinter.view.ViewData;
+import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 /**
  * Created by pacahon on 07.12.14.

@@ -8,7 +8,7 @@ import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
-import ru.yandex.autoschool.splinter.view.ViewData;
+import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -30,7 +30,7 @@ public class PostResource extends BaseResource {
     private static final String RESOURCE_PATH = "/posts/";
     @GET
     @Path("/")
-    @Template(name = "/templates/post/list.ftl")
+    @Template(name = "/post/list")
     public ViewData listAction(@DefaultValue("1") @QueryParam("page") int page) {
         Paginator p = new Paginator(Post.class, ApplicationConfig.POSTS_PER_PAGE, "*").orderBy("created_at desc");
         int pageCount = Math.max((int) p.pageCount(), 1);
@@ -52,7 +52,7 @@ public class PostResource extends BaseResource {
 
     @GET
     @Path("/{id}")
-    @Template(name = "/templates/post/single.ftl")
+    @Template(name = "/post/single")
     public Response singleAction(@PathParam("id") int id) {
         Post post = Post.findById(id);
         if (post == null) {
@@ -66,7 +66,7 @@ public class PostResource extends BaseResource {
 
     @GET
     @Path("/new")
-    @Template(name = "/templates/post/form.ftl")
+    @Template(name = "/post/form")
     public Response formAction() {
         ViewData.set("model", new Post());
         return Response.ok(ViewData).build();
@@ -75,7 +75,7 @@ public class PostResource extends BaseResource {
     @POST
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Template(name = "/templates/post/single.ftl")
+    @Template(name = "/post/single")
     public Response saveAction(@FormParam("title")
                                @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String title
                               ,@FormParam("content")
@@ -90,7 +90,7 @@ public class PostResource extends BaseResource {
     @POST
     @Path("/{id}/edit")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Template(name= "/templates/post/single.ftl")
+    @Template(name= "/post/single")
     public Response editPostAction(@PathParam("id") int id,
                                    @FormParam("title")
                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String title,
@@ -106,7 +106,7 @@ public class PostResource extends BaseResource {
     @POST
     @Path("/{id}/delete")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Template(name= "/templates/post/single.ftl")
+    @Template(name= "/post/single")
     public Response deletePostAction(@PathParam("id") @NotNull(message = "not null") int id){
         Post post=Post.findById(id);
         post.delete();
@@ -117,7 +117,7 @@ public class PostResource extends BaseResource {
     @POST
     @Path("/{id}/comment")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Template(name = "/templates/post/single.ftl")
+    @Template(name = "/post/single")
     public Response commentAction(@PathParam("id")  @NotNull(message = "not null")  int id
                                   ,@FormParam("content")
                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String commentContent) {
