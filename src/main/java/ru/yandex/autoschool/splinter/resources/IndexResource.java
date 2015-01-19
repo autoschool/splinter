@@ -1,12 +1,13 @@
 package ru.yandex.autoschool.splinter.resources;
 
 import org.glassfish.jersey.server.mvc.Template;
+import ru.yandex.autoschool.splinter.application.Splinter;
 import ru.yandex.autoschool.splinter.config.ApplicationConfig;
 import ru.yandex.autoschool.splinter.models.Post;
 import ru.yandex.autoschool.splinter.models.User;
-import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="post" type="ru.yandex.autoschool.splinter.models.Post" -->
-<section class="post">
+<article class="post">
     <header class="entry-header">
     <#--<img class="entry-avatar" alt="Paul Laros" height="52" width="52" src="http://www.gravatar.com/avatar/ea67e860739cd91fe40b6797e97e6820.jpg?s=52">-->
         <h2 class="entry-title"><a href="/posts/${post.id}">${post.title}</a></h2>
@@ -12,4 +12,4 @@
         ${post.content}
         </p>
     </div>
-</section>
+</article>

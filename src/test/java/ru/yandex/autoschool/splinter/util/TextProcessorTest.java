@@ -2,9 +2,6 @@ package ru.yandex.autoschool.splinter.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-//import org.junit.runners.Parameterized;
-//import org.junit.runners.Parameterized.Parameter;
-//import org.junit.runners.Parameterized.Parameters;
 import org.junit.runner.RunWith;
 import org.junit.Assert;
 
@@ -19,7 +16,7 @@ import ru.yandex.autoschool.splinter.utils.TextProcessor;
  * @version %I%, %G%
  * @since 1.0
  */
-@SuppressWarnings("UnusedDeclaration")
+@SuppressWarnings({"UnusedDeclaration", "TestMethodWithIncorrectSignature"})
 @RunWith(JUnitParamsRunner.class)
 public class TextProcessorTest {
     private Object[] truncateByCharParameters() {
