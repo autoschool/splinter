@@ -36,6 +36,53 @@ public class AuthResource extends BaseResource {
     private Logger logger;
 
     @GET
+    @Path("/register")
+    @Template(name = "/auth/register")
+    public ViewData showRegisterForm() throws IOException {
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("userId") != null) {
+            response.sendRedirect("/users/" + (int) session.getAttribute("userId"));
+        }
+
+        this.flushError();
+
+        return ViewData;
+    }
+
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public ViewData processRegister(@FormParam("login") String login,
+                                    @FormParam("email") String email,
+                                    @FormParam("name") String name,
+                                    @FormParam("sirname") String sirname,
+                                    @FormParam("password") String password) throws IOException {
+        HttpSession session = request.getSession(true);
+        User user = User.findFirst("login = ? OR email = ?", login, email);
+        if (user != null) {
+            LOGGER.error("User already exist.", user.getLogin());
+            session.setAttribute("error", "User with mentioned login(or email) already exist");
+            response.sendRedirect("/register");
+            return ViewData;
+        }
+
+        user = new User();
+        user.setLogin(login);
+        user.setEmail(email);
+        user.setName(name);
+        user.setSirname(sirname);
+        user.setRole("writer");
+        user.setPassword(password);
+        user.saveIt();
+
+        session.setAttribute("userId", user.getId());
+
+        response.sendRedirect("/users/" + user.getId());
+        return ViewData;
+    }
+
+
+    @GET
     @Path("/signin")
     @Template(name = "/auth/login")
     public ViewData showLoginForm() throws IOException {
@@ -44,11 +91,9 @@ public class AuthResource extends BaseResource {
             response.sendRedirect("/users/" + (int) session.getAttribute("userId"));
             return ViewData;
         }
-        String error = (String) session.getAttribute("error");
-        if (error != null) {
-            ViewData.set("error", error);
-            session.removeAttribute("error");
-        }
+
+        this.flushError();
+        
         return ViewData;
     }
 
@@ -57,7 +102,7 @@ public class AuthResource extends BaseResource {
     @Path("/signin")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public ViewData loginAction(@FormParam("email") String name,
-                               @FormParam("pass") String hash) throws IOException {
+                                @FormParam("pass") String hash) throws IOException {
 
         HttpSession session = request.getSession(true);
         
