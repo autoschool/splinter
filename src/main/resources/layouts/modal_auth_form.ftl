@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="authForm" tabindex="-1" role="dialog" aria-labelledby="authFormLabel" aria-hidden="true">
     <div id="login-overlay" class="modal-dialog">
         <div class="modal-content">

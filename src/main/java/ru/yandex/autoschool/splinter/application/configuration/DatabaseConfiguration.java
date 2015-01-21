@@ -37,6 +37,10 @@ public class DatabaseConfiguration {
     private String password;
     @Property("database.host")
     private String host;
+    @Property("database.port")
+    private Integer port;
+    @Property("database.path")
+    private String path;
     
     public DatabaseConfiguration() {
         PropertyLoader.populate(this);
@@ -64,5 +68,13 @@ public class DatabaseConfiguration {
 
     public String getHost() {
         return host;
+    }
+    
+    public Integer getPort() {
+        return port;
+    }
+    
+    public String getPath() {
+        return path;
     }
 }

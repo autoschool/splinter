@@ -1,8 +1,5 @@
 package ru.yandex.autoschool.splinter.view.freemarker;
 
-import ru.yandex.autoschool.splinter.application.Splinter;
-
-import javax.inject.Inject;
 import java.util.HashMap;
 
 /**
@@ -12,11 +9,11 @@ import java.util.HashMap;
  */
 @SuppressWarnings("unused")
 public class SharedVariablesManager {
-    @Inject
-    private Splinter application;
+    private HashMap<String, Object> sharedVariables = new HashMap<>();
     public HashMap<String, Object> provide() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("splinter", application);
-        return map;
+        return sharedVariables;
+    }
+    public void put(String key, Object variable) {
+        sharedVariables.put(key, variable);
     }
 }

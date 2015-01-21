@@ -1,9 +1,11 @@
 package ru.yandex.autoschool.splinter.service;
 
+import org.slf4j.Logger;
 import ru.yandex.autoschool.splinter.context.AuthContext;
 import ru.yandex.autoschool.splinter.models.User;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Priorities;
@@ -11,8 +13,6 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import java.io.IOException;
-
-import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
 
 /**
  * @author pacahon
@@ -22,6 +22,9 @@ public class AuthProvider implements ContainerRequestFilter {
 
     @Context
     HttpServletRequest request;
+    
+    @Inject
+    Logger logger;
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -30,12 +33,12 @@ public class AuthProvider implements ContainerRequestFilter {
         Object userId = session.getAttribute("userId");
         User user = null;
         if (userId != null) {
-            LOGGER.debug("Fetched current user ID from session ({})", userId);
+            logger.debug("Fetched current user ID from session ({})", userId);
             user = User.findById(userId);
             if (user != null) {
-                LOGGER.info("Recognized user `{}` using session", user.getLogin());
+                logger.info("Recognized user `{}` using session", user.getLogin());
             } else {
-                LOGGER.warn("Couldn't find user using ID from session");
+                logger.warn("Couldn't find user using ID from session");
             }
         }
 
