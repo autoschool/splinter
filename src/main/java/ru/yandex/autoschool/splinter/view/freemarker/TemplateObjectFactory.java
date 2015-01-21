@@ -16,6 +16,7 @@ import java.util.Map;
  */
 public class TemplateObjectFactory extends Configuration {
     public TemplateObjectFactory() throws TemplateModelException, IOException, NullPointerException {
+        SimpleContainer.setFreemarkerConfiguration(this);
         Logger logger = SimpleContainer.getLogger();
         SharedVariablesManager sharedVariablesManager = SimpleContainer.getSharedVariablesManager();
         logger.info("Creating injected freemarker configuration instance");

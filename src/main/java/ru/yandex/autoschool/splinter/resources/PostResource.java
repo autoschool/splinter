@@ -1,10 +1,9 @@
 package ru.yandex.autoschool.splinter.resources;
 
-import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Paginator;
-import ru.yandex.autoschool.splinter.config.ApplicationConfig;
+import ru.yandex.autoschool.splinter.application.Configuration;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
 import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Etki {@literal <etki@etki.name>}
@@ -32,14 +30,15 @@ public class PostResource extends BaseResource {
     @Path("/")
     @Template(name = "/post/list")
     public ViewData listAction(@DefaultValue("1") @QueryParam("page") int page) {
-        Paginator p = new Paginator(Post.class, ApplicationConfig.POSTS_PER_PAGE, "*").orderBy("created_at desc");
+        int postsPerPage = Configuration.POSTS_PER_PAGE;
+        Paginator p = new Paginator(Post.class, postsPerPage, "*").orderBy("created_at desc");
         int pageCount = Math.max((int) p.pageCount(), 1);
         int pageNumber = (page > pageCount) ? pageCount : Math.max(1, page);
         LazyList posts = p.getPage(pageNumber);
 
         ViewData.set("model", posts);
 
-        Map<String, Object> pagination = new HashMap();
+        HashMap<String, Object> pagination = new HashMap<>();
         pagination.put("currentPage", pageNumber);
         pagination.put("totalPages", pageCount);
         pagination.put("linkUrl", RESOURCE_PATH);

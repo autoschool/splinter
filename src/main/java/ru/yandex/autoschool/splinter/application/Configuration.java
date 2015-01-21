@@ -10,6 +10,7 @@ import ru.yandex.autoschool.splinter.application.configuration.database.url.UrlG
  */
 @SuppressWarnings("unused")
 public class Configuration {
+    public static int POSTS_PER_PAGE = 3;
     private String databaseUrl;
     final private DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
     public Configuration() {

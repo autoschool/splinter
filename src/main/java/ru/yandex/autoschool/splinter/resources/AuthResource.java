@@ -3,6 +3,7 @@ package ru.yandex.autoschool.splinter.resources;
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
 import org.slf4j.Logger;
+import ru.yandex.autoschool.splinter.di.SimpleContainer;
 import ru.yandex.autoschool.splinter.models.User;
 import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
@@ -33,6 +34,7 @@ public class AuthResource extends BaseResource {
     SecurityContext securityContext;
     
     @Inject
+    @SuppressWarnings("unused")
     private Logger logger;
 
     @GET
@@ -60,7 +62,7 @@ public class AuthResource extends BaseResource {
         HttpSession session = request.getSession(true);
         User user = User.findFirst("login = ? OR email = ?", login, email);
         if (user != null) {
-            LOGGER.error("User already exist.", user.getLogin());
+            SimpleContainer.getLogger().error("User already exist.", user.getLogin());
             session.setAttribute("error", "User with mentioned login(or email) already exist");
             response.sendRedirect("/register");
             return ViewData;

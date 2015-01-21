@@ -30,7 +30,7 @@ public class DatabaseConfiguration {
     @Property("database.driver")
     private Driver driver;
     @Property("database.name")
-    private String name;
+    private String name = "splinter";
     @Property("database.user")
     private String user;
     @Property("database.password")

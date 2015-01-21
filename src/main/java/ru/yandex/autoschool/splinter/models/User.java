@@ -1,19 +1,19 @@
 package ru.yandex.autoschool.splinter.models;
 
 import org.javalite.activejdbc.Model;
+import ru.yandex.autoschool.splinter.di.SimpleContainer;
 import ru.yandex.autoschool.splinter.exceptions.PasswordEncryptException;
 import ru.yandex.autoschool.splinter.service.PasswordService;
 
 import java.security.Principal;
 import java.sql.Timestamp;
 
-import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
-
 /**
  * @author Etki {@literal <etki@etki.name>}
  * @version %I%, %G%
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public class User extends Model implements Principal {
     @Override
     public String getName() {
@@ -77,7 +77,7 @@ public class User extends Model implements Principal {
             String encryptedPassword = PasswordService.getInstance().encrypt(plainPassword);
             setString("password", encryptedPassword);
         } catch (PasswordEncryptException e) {
-            LOGGER.error("Error password encrypt for new user");
+            SimpleContainer.getLogger().error("Error password encrypt for new user");
             // FIXME: return error?
         }
     }

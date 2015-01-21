@@ -32,6 +32,14 @@ public class Server extends ResourceConfig {
         Splinter splinter = new Splinter();
         registerBinders(splinter);
         
+        SimpleContainer.getLogger().debug(
+                String.format(
+                        "Starting application in `%s` environment using `%s` database driver",
+                        splinter.getEnvironment().toString().toLowerCase(),
+                        splinter.getConfiguration().getDatabaseConfiguration().getDriver().toString().toLowerCase()
+                )
+        );
+        
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         property(ServerProperties.BV_DISABLE_VALIDATE_ON_EXECUTABLE_OVERRIDE_CHECK, true);
         register(FreemarkerMvcFeature.class);
