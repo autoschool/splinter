@@ -12,11 +12,11 @@
                 </#if>
                 <div class="form-group">
                     <input type="text" class="form-control" id="login" name="email" value="admin@localhost.ru"
-                           placeholder="Login">
+                           placeholder="Login" required>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="pass" name="pass" value="password"
-                           placeholder="Password">
+                           placeholder="Password" required>
                 </div>
             </div>
             <div class="row">
