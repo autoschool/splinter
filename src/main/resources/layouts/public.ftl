@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-12 copyright">
                     <p>
-                        Copyright 2015
+                        Copyright 2014
                     </p>
                 </div>
             </div>
