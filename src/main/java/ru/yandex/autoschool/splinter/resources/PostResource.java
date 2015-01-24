@@ -27,7 +27,6 @@ import java.util.HashMap;
 public class PostResource extends BaseResource {
     private static final String RESOURCE_PATH = "/posts/";
     @GET
-    @Path("/")
     @Template(name = "/post/list")
     public ViewData listAction(@DefaultValue("1") @QueryParam("page") int page) {
         int postsPerPage = Configuration.POSTS_PER_PAGE;
