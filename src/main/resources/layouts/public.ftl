@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-12 copyright">
                     <p>
-                        Copyright 2014
+                        ${application_name} // ${application_version} // Те еще девелоперы ltd. 2014-2015
                     </p>
                 </div>
             </div>

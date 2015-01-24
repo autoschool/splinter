@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.qatools.school.splinter</groupId>
   <artifactId>splinter</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Splinter weblogging software</name>
   <url>http://maven.apache.org</url>
   <licenses>
@@ -24,6 +23,13 @@
     <slf4j.version>1.7.7</slf4j.version>
     <liquibase.version>3.3.0</liquibase.version>
   </properties>
+  
+  <scm>
+    <connection>scm:git:git://github.com/autoschool/splinter.git</connection>
+    <developerConnection>scm:git:git@github.com:autoschool/splinter.git</developerConnection>
+    <url>http://github.com/autoschool/splinter/tree/master</url>
+  </scm>
+  
   <repositories>
     <repository>
       <id>Codehaus Mojo</id>
@@ -219,6 +225,13 @@
     </dependency>
   </dependencies>
   <build>
+    <!-- populating splinter.properties file -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

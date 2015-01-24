@@ -2,10 +2,13 @@ package ru.yandex.autoschool.splinter.resources;
 
 import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Template;
+import org.slf4j.Logger;
+import ru.yandex.autoschool.splinter.di.SimpleContainer;
 import ru.yandex.autoschool.splinter.models.User;
 import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,8 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
-
-import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
 
 /**
  * Created by pacahon on 28.11.14.
@@ -31,6 +32,10 @@ public class AuthResource extends BaseResource {
     HttpServletResponse response;
     @Context
     SecurityContext securityContext;
+    
+    @Inject
+    @SuppressWarnings("unused")
+    private Logger logger;
 
     @GET
     @Path("/register")
@@ -57,7 +62,7 @@ public class AuthResource extends BaseResource {
         HttpSession session = request.getSession(true);
         User user = User.findFirst("login = ? OR email = ?", login, email);
         if (user != null) {
-            LOGGER.error("User already exist.", user.getLogin());
+            SimpleContainer.getLogger().error("User already exist.", user.getLogin());
             session.setAttribute("error", "User with mentioned login(or email) already exist");
             response.sendRedirect("/register");
             return ViewData;
@@ -102,7 +107,7 @@ public class AuthResource extends BaseResource {
                                 @FormParam("pass") String hash) throws IOException {
 
         HttpSession session = request.getSession(true);
-
+        
         if (session.getAttribute("userId") != null) {
             response.sendRedirect("/users/" + session.getAttribute("userId"));
             return ViewData;
@@ -111,14 +116,14 @@ public class AuthResource extends BaseResource {
         User user = User.findByUnknownIdentifierAndPassword(name, hash);
 
         if (user == null) {
-            LOGGER.info("Received incorrect email-password pair, halting authorization");
+            logger.info("Received incorrect email-password pair, halting authorization");
             session.setAttribute("error", "Incorrect login-password pair");
             response.sendRedirect("/signin");
             return ViewData;
         }
 
         session.setAttribute("userId", user.getId());
-        LOGGER.debug("Saving user ID in session after successful authorization ({}).", user.getId());
+        logger.debug("Saving user ID in session after successful authorization ({}).", user.getId());
 
         response.sendRedirect("/users/" + user.getId());
 

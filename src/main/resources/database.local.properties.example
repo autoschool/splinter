@@ -1,5 +1,0 @@
-db.driver=mysql
-db.location=network
-db.port=3306
-db.user=splinter
-db.password=splinter

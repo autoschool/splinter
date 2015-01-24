@@ -6,10 +6,12 @@ import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.FileSystemResourceAccessor;
 import org.h2.jdbcx.JdbcDataSource;
 import org.javalite.activejdbc.Base;
+import org.slf4j.Logger;
+import ru.yandex.autoschool.splinter.application.Configuration;
+import ru.yandex.autoschool.splinter.application.configuration.DatabaseConfiguration;
+import ru.yandex.autoschool.splinter.application.configuration.database.Driver;
 import ru.yandex.autoschool.splinter.config.FilterPriorities;
-import ru.yandex.autoschool.splinter.config.ServerConfig;
-import ru.yandex.autoschool.splinter.config.database.AbstractDatabaseConfig.DRIVER;
-import ru.yandex.autoschool.splinter.config.database.DatabaseConfig;
+import ru.yandex.autoschool.splinter.di.SimpleContainer;
 
 import javax.annotation.Priority;
 import javax.sql.DataSource;
@@ -19,8 +21,6 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-
-import static ru.yandex.autoschool.splinter.SplinterApplication.LOGGER;
 
 import static java.lang.String.format;
 
@@ -38,24 +38,24 @@ import static java.lang.String.format;
         justification = "Halts whole application in case database is not available and there's no point in going further"
 )
 public class DatabaseProvider implements ContainerRequestFilter {
-    private static DatabaseConfig config;
     private static String dbUrl;
-    private static DRIVER dbDriver;
+    private static Driver dbDriver;
     private static String dbUser;
     private static String dbPassword;
 
     static {
-        ServerConfig serverConfig = new ServerConfig();
-        config = serverConfig.getDatabaseConfig();
+        Configuration configuration = SimpleContainer.getApplication().getConfiguration();
+        DatabaseConfiguration databaseConfiguration = configuration.getDatabaseConfiguration();
+        Logger logger = SimpleContainer.getLogger();
         try {
-            dbUrl = config.getUrl();
-            dbDriver = config.getDriver();
-            dbUser = config.getUser();
-            dbPassword = config.getPassword();
+            dbUrl = configuration.getDatabaseUrl();
+            dbDriver = databaseConfiguration.getDriver();
+            dbUser = databaseConfiguration.getUser();
+            dbPassword = databaseConfiguration.getPassword();
 
-            LOGGER.info(format("Starting embedded database with url '%s' ...", dbUrl));
+            logger.info(format("Starting embedded database with url '%s' ...", dbUrl));
             String changeLogPath = getChangeLogLocation();
-            LOGGER.info(format("Using `%s` as changelog path", changeLogPath));
+            logger.info(format("Using `%s` as changelog path", changeLogPath));
             Liquibase liquibaseMigrationManager = new Liquibase(
                     changeLogPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
             );
@@ -67,16 +67,18 @@ public class DatabaseProvider implements ContainerRequestFilter {
             liquibaseFixtureImporter.update("");
             openConnection();
         } catch (Exception e) {
-            LOGGER.error("Failed to start embedded database", e);
+            logger.error("Failed to start embedded database", e);
             System.exit(-1);
         }
     }
-    private static DataSource getDataSource(DRIVER driver, String url, String user, String password) {
+    private static DataSource getDataSource(Driver driver, String url, String user, String password) {
         DataSource dataSource;
         switch (driver) {
             case H2:
                 JdbcDataSource h2DataSource = new JdbcDataSource();
                 h2DataSource.setUrl(url);
+                user = user != null ? user : "";
+                password = password != null ? password : "";
                 h2DataSource.setUser(user);
                 h2DataSource.setPassword(password);
                 return h2DataSource;

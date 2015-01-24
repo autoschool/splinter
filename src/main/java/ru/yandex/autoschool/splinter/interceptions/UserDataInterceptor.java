@@ -2,6 +2,7 @@ package ru.yandex.autoschool.splinter.interceptions;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -12,6 +13,7 @@ import javax.ws.rs.ext.WriterInterceptorContext;
 import javax.annotation.Priority;
 
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.slf4j.Logger;
 import ru.yandex.autoschool.splinter.models.User;
 import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
@@ -30,6 +32,9 @@ import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 public class UserDataInterceptor implements WriterInterceptor {
     @Context
     SecurityContext securityContext;
+    
+    @Inject
+    private Logger logger;
 
     @Override
     public void aroundWriteTo(final WriterInterceptorContext context) throws IOException, WebApplicationException {
