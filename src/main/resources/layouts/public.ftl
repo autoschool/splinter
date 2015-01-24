@@ -31,37 +31,37 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/posts/">Все посты</a>
+                            <a href="/posts/">All posts</a>
                         </li>
                         <li>
-                            <a href="/users/">Авторы</a>
+                            <a href="/users/">Authors</a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">О проекте</a></li>
-                        <#--<li><a href="/login/" data-toggle="modal" data-target="#authForm">Вход</a></li>-->
+                        <li><a href="/about">About</a></li>
+                        <#--<li><a href="/login/" data-toggle="modal" data-target="#authForm">Login</a></li>-->
 
                         <#if !authUser??>
-                            <li><a href="/signin">Вход</a></li>
+                            <li><a href="/signin">Login</a></li>
                         <#else>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">${authUser.login} <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="download">
-                                    <li><a href="/profile/"><i class="fa fa-gear"></i> Профиль пользователя</a></li>
-                                    <li><a href="/posts/new"><i class="fa fa-plus"></i> Создать пост</a></li>
-                                    <li><a href="/signout"><i class="fa fa-sign-out"></i> Выход</a></li>
+                                    <li><a href="/profile/"><i class="fa fa-gear"></i> Profile</a></li>
+                                    <li><a href="/posts/new"><i class="fa fa-plus"></i> Create post</a></li>
+                                    <li><a href="/signout"><i class="fa fa-sign-out"></i> Exit</a></li>
                                 </ul>
                             </li>
                         </#if>
                         <li>
                             <form class="navbar-form" role="search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Поиск...">
+                                    <input type="text" class="form-control" placeholder="Search...">
                                     <span class="input-group-btn">
                                       <button type="submit" class="btn btn-default">
                                         <span class="fa fa-search">
-                                          <span class="sr-only">Поиск...</span>
+                                          <span class="sr-only">Search...</span>
                                         </span>
                                       </button>
                                     </span>
