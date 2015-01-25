@@ -75,7 +75,7 @@ public class Server extends ResourceConfig {
         register(new AbstractBinder() {
             @Override
             protected void configure() {
-                bind(new DatabaseConfiguration()).to(DatabaseConfiguration.class);
+                bind(application.getConfiguration().getDatabaseConfiguration()).to(DatabaseConfiguration.class);
             }
         });
         register(new AbstractBinder() {

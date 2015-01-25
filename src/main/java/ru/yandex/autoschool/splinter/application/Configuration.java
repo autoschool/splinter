@@ -12,8 +12,9 @@ import ru.yandex.autoschool.splinter.application.configuration.database.url.UrlG
 public class Configuration {
     public static int POSTS_PER_PAGE = 3;
     private String databaseUrl;
-    final private DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
-    public Configuration() {
+    final private DatabaseConfiguration databaseConfiguration;
+    public Configuration(Environment environment) {
+        databaseConfiguration = new DatabaseConfiguration(environment);
         databaseUrl = new UrlGenerator().generateUrl(databaseConfiguration);
     }
 

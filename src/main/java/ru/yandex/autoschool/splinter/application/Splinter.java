@@ -24,7 +24,7 @@ public class Splinter {
     @Use(EnvironmentConverter.class)
     @Property("splinter.environment")
     private Environment environment;
-    private Configuration configuration = new Configuration();
+    private Configuration configuration;
     public Splinter() {
         PropertyLoader.populate(this);
         if (environment == null) {
@@ -34,6 +34,7 @@ public class Splinter {
                     "see README.md for usage hints.";
             throw new IllegalStateException(message);
         }
+        configuration = new Configuration(environment);
     }
     public String getName() {
         return name;
