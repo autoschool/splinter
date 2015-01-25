@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-offset-4 col-md-4">
-        <form class="form" role="form" action="/register" method="post">
+        <form class="form" role="form" action="/register" method="post" id="register-form">
             <div class="page-header">
                 <#if error??>
                     <div class="alert alert-danger" role="alert">

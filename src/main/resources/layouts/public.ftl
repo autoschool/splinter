@@ -31,10 +31,10 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/posts/">All posts</a>
+                            <a href="/posts/" id="allposts">All posts</a>
                         </li>
                         <li>
-                            <a href="/users/">Authors</a>
+                            <a href="/users/" id="authors">Authors</a>
                         </li>
                     </ul>
 
@@ -43,14 +43,14 @@
                         <#--<li><a href="/login/" data-toggle="modal" data-target="#authForm">Login</a></li>-->
 
                         <#if !authUser??>
-                            <li><a href="/signin">Login</a></li>
+                            <li><a href="/signin">Login id="login"</a></li>
                         <#else>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">${authUser.login} <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="download">
-                                    <li><a href="/profile/"><i class="fa fa-gear"></i> Profile</a></li>
-                                    <li><a href="/posts/new"><i class="fa fa-plus"></i> Create post</a></li>
-                                    <li><a href="/signout"><i class="fa fa-sign-out"></i> Exit</a></li>
+                                    <li><a href="/profile/" id="profile"><i class="fa fa-gear"></i> Profile</a></li>
+                                    <li><a href="/posts/new" id="newpost"><i class="fa fa-plus"></i> Create post</a></li>
+                                    <li><a href="/signout" id="singout"><i class="fa fa-sign-out"></i> Exit</a></li>
                                 </ul>
                             </li>
                         </#if>
@@ -59,7 +59,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search...">
                                     <span class="input-group-btn">
-                                      <button type="submit" class="btn btn-default">
+                                      <button type="submit" class="btn btn-default" id="search">
                                         <span class="fa fa-search">
                                           <span class="sr-only">Search...</span>
                                         </span>

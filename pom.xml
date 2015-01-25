@@ -230,6 +230,11 @@
       <type>jar</type>
     </dependency>
     <dependency>
+      <groupId>ru.yandex.qatools.htmlelements</groupId>
+      <artifactId>htmlelements-java</artifactId>
+      <version>1.13</version>
+    </dependency>
+    <dependency>
       <groupId>com.github.detro.ghostdriver</groupId>
       <artifactId>phantomjsdriver</artifactId>
       <version>1.1.0</version>
