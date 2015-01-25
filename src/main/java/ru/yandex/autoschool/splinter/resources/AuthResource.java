@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -54,10 +56,19 @@ public class AuthResource extends BaseResource {
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public ViewData processRegister(@FormParam("login") String login,
-                                    @FormParam("email") String email,
-                                    @FormParam("name") String name,
-                                    @FormParam("sirname") String sirname,
+    public ViewData processRegister(@FormParam("login")
+                                    @NotNull(message = "login is null")
+                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty string")  String login,
+                                    @FormParam("email")
+                                    @NotNull(message = "email is null")
+                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty email") String email,
+                                    @FormParam("name")
+                                    @NotNull(message = "name is null")
+                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String name,
+                                    @FormParam("sirname")
+                                    @NotNull(message = "sirname is null")
+                                    @Pattern(regexp = "^(?!\\s*$).+", message = "empty string")
+                                    String sirname,
                                     @FormParam("password") String password) throws IOException {
         HttpSession session = request.getSession(true);
         User user = User.findFirst("login = ? OR email = ?", login, email);
@@ -103,8 +114,13 @@ public class AuthResource extends BaseResource {
     @POST
     @Path("/signin")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public ViewData loginAction(@FormParam("email") String name,
-                                @FormParam("pass") String hash) throws IOException {
+    public ViewData loginAction(@FormParam("email")
+                                @NotNull(message = "email is null")
+                                @Pattern(regexp = "^(?!\\s*$).+", message = "empty email")
+                                    String name,
+                                @FormParam("pass")
+                                @NotNull(message = "pass is null")
+                                @Pattern(regexp = "^(?!\\s*$).+", message = "empty string") String hash) throws IOException {
 
         HttpSession session = request.getSession(true);
         
