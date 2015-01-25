@@ -25,3 +25,7 @@ nbproject
 # mergetool stuff
 *.orig
 
+
+nb-configuration.xml
+
+phantomjsdriver.log
