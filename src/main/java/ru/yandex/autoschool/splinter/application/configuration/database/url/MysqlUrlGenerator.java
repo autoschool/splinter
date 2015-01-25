@@ -25,6 +25,7 @@ public class MysqlUrlGenerator implements UrlGeneratorInterface {
         return url;
     }
     protected String generateQueryString(DatabaseConfiguration configuration) {
+        String suffix = "characterEncoding=utf-8&useUnicode=true";
         String queryString = null;
         if (configuration.getUser() != null) {
             queryString = "user=" + configuration.getUser();
@@ -32,7 +33,7 @@ public class MysqlUrlGenerator implements UrlGeneratorInterface {
                 queryString += "&password=" + configuration.getPassword();
             }
         }
-        return queryString;
+        return queryString == null ? suffix : queryString + "&" + suffix;
     }
     protected void validateConfiguration(DatabaseConfiguration configuration) {
         if (configuration.getLocation() != Location.NETWORK) {

@@ -46,7 +46,7 @@ public class MysqlUrlGeneratorTest {
                         "dummyhost",
                         1337,
                         "dummypath",
-                        "jdbc:mysql://dummyhost:1337/dummyname?user=dummyuser&password=dummypassword"
+                        "jdbc:mysql://dummyhost:1337/dummyname?user=dummyuser&password=dummypassword&characterEncoding=utf-8&useUnicode=true"
                 ),
                 $(
                         Location.NETWORK,
@@ -56,7 +56,7 @@ public class MysqlUrlGeneratorTest {
                         "dummyHost",
                         null,
                         null,
-                        "jdbc:mysql://dummyHost/dummyName"
+                        "jdbc:mysql://dummyHost/dummyName?characterEncoding=utf-8&useUnicode=true"
                 )
         );
     }
