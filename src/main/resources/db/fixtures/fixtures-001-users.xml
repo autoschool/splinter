@@ -9,7 +9,7 @@
         <insert tableName="users">
             <column name="login">admin</column>
             <column name="email">admin@localhost.ru</column>
-            <column name="password">password</column>
+            <column name="password">W6ph5Mm5Pz8GgiULbPgzG37mj9g=</column>
             <column name="name">Glorious Admin</column>
             <column name="sirname">Glorious Admin</column>
             <column name="role">admin</column>
@@ -17,7 +17,7 @@
         <insert tableName="users">
             <column name="login">reader</column>
             <column name="email">reader@localhost.ru</column>
-            <column name="password">password</column>
+            <column name="password">W6ph5Mm5Pz8GgiULbPgzG37mj9g=</column>
             <column name="name">Pathetic reader</column>
             <column name="sirname">Pathetic reader</column>
             <column name="role">reader</column>
