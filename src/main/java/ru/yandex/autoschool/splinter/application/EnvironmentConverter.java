@@ -11,7 +11,7 @@ public class EnvironmentConverter {
         if (environment == null) {
             throw new IllegalArgumentException("Null passed as environment name");
         }
-        switch (environment) {
+        switch (environment.toLowerCase()) {
             case "prod":
                 // falling forward
             case "production":
