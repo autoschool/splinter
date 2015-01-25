@@ -6,7 +6,6 @@ import org.javalite.activejdbc.Paginator;
 import ru.yandex.autoschool.splinter.application.Configuration;
 import ru.yandex.autoschool.splinter.models.Comment;
 import ru.yandex.autoschool.splinter.models.Post;
-import ru.yandex.autoschool.splinter.utils.freemarker.MarkdownMethod;
 import ru.yandex.autoschool.splinter.view.freemarker.ViewData;
 
 import javax.validation.constraints.NotNull;
@@ -43,7 +42,6 @@ public class PostResource extends BaseResource {
         pagination.put("linkUrl", RESOURCE_PATH);
         
         ViewData.set("pagination", pagination);
-        ViewData.set("markdownize", new MarkdownMethod());
 
         return ViewData;
     }
@@ -58,7 +56,6 @@ public class PostResource extends BaseResource {
         }
 
         ViewData.set("model", post);
-        ViewData.set("markdownize", new MarkdownMethod());
         return Response.ok(ViewData).build();
     }
 
