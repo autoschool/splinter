@@ -10,8 +10,8 @@
             <div class="modal-body">
                 <form class="form" role="form" action="/posts/${model.id}/edit" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" rows="1" pattern="^(?!\s*$).+" name="title"  required placeholder=${model.title}>
-                        <textarea class="form-control" rows="5" name="content" required  placeholder=${model.content}></textarea>
+                        <input type="text" class="form-control" rows="1" pattern="^(?!\s*$).+" name="title"  required value=${model.title}>
+                        <textarea class="form-control" rows="5" name="content" required  >${model.content}</textarea>
                     </div>
                     <p>Do you want to save changes in this post?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
