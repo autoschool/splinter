@@ -1,8 +1,10 @@
 package ru.yandex.autoschool.splinter.interceptions;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.inject.Inject;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -39,13 +41,15 @@ public class UserDataInterceptor implements WriterInterceptor {
     @Override
     public void aroundWriteTo(final WriterInterceptorContext context) throws IOException, WebApplicationException {
         final Object entity = context.getEntity();
-
         if (entity instanceof Viewable) {
             User user = (User) securityContext.getUserPrincipal();
-            ViewData model = ((ViewData) ((Viewable) entity).getModel());
-            model.set("authUser", user);
-            String templateName = ((Viewable) entity).getTemplateName();
-            context.setEntity(new Viewable(templateName, model.getData()));
+
+            if ( ((Viewable) entity).getModel() instanceof ViewData) {
+                ViewData model = ((ViewData) ((Viewable) entity).getModel());
+                model.set("authUser", user);
+                String templateName = ((Viewable) entity).getTemplateName();
+                context.setEntity(new Viewable(templateName, model.getData()));
+            }
         }
 
         context.proceed();

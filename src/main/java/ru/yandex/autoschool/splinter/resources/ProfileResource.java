@@ -24,7 +24,6 @@ public class ProfileResource extends BaseResource {
     HttpServletResponse response;
 
     @GET
-    @Path("/")
     @Template(name = "/user/list")
     public ViewData showProfilesListAction() {
         this.ViewData.set("authUser", securityContext.getUserPrincipal());

@@ -40,7 +40,6 @@ public class IndexResource extends BaseResource {
     private Splinter application;
 
     @GET
-    @Path("/")
     @Template(name = "/index/index")
     public ViewData indexAction() {
         int postsPerPage = Configuration.POSTS_PER_PAGE;
