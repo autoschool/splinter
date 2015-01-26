@@ -15,6 +15,9 @@ import java.sql.Timestamp;
  */
 @SuppressWarnings("unused")
 public class User extends Model implements Principal {
+    final public static String ROLE_ADMIN = "admin";
+    final public static String ROLE_READER = "reader";
+    
     @Override
     public String getName() {
         return getString("name");
@@ -90,5 +93,9 @@ public class User extends Model implements Principal {
         } catch (PasswordEncryptException e) {}
 
         return findFirst("(login = ? OR email = ?) AND password = ?", identifier, identifier, passwordHash);
+    }
+    public static User findByLogin(String login)
+    {
+        return findFirst("login = ?", login);
     }
 }
