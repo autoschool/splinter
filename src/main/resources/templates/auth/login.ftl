@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-offset-4 col-md-4">
-        <form class="form" role="form" action="/signin" method="post">
+        <form class="form" role="form" action="/signin" method="post" id="single-form">
             <div class="page-header">
                 <#if error??>
                     <div class="alert alert-danger" role="alert">
@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-danger pull-right">Sign in</button>
+                    <button type="submit" class="btn btn-danger pull-right" id="singIn">Sign in</button>
                     <a href="/register" class="btn btn-link pull-right">Register</a>
                 </div>
             </div>

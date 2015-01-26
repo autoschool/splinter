@@ -6,18 +6,18 @@
 <div class="row">
     <div class="col-md-12">
         <h3>Create post form</h3>
-        <form class="form" role="form" action="/posts/new" method="POST">
+        <form class="form" role="form" action="/posts/new" method="POST" id="newpost-form">
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title"
                        placeholder="Post Title" required pattern="^(?!\s*$).+"">
             </div>
             <div class="form-group">
-                <textarea class="form-control" id="content"  rows="10" name="content" placeholder="Post Body" required>
+                <textarea class="form-control" id="body"  rows="10" name="content" placeholder="Post Body" required>
                 </textarea>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-danger pull-right">Create</button>
+                    <button type="submit" class="btn btn-danger pull-right" id="submit">Create</button>
                 </div>
             </div>
         </form>

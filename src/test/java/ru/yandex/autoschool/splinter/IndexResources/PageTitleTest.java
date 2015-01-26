@@ -60,4 +60,19 @@ public class PageTitleTest {
     public void testAuthorsPageTitle() {
       testPageTitle(baseUrl.concat("/users"), "Blog: authors list");
     }
+    
+    @Test
+    public void testPostsPageTitle() {
+      testPageTitle(baseUrl.concat("/posts"), "Blog: show post");
+    }
+    
+    @Test
+    public void testLoginPageTitle() {
+      testPageTitle(baseUrl.concat("/signin"), "Login");
+    }
+    
+    @Test
+    public void shouldNotOpenProfilePage() {
+      testPageTitle(baseUrl.concat("/profile"), "Login");
+    }
 }

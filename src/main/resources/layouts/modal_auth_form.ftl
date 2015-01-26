@@ -26,7 +26,7 @@
                                         <input type="checkbox" name="remember" id="remember"> Remember login
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-block">Login</button>
+                                <button type="submit" class="btn btn-success btn-block" id="submit">Login</button>
                             </form>
                         </div>
                     </div>
