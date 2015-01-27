@@ -12,6 +12,7 @@ import ru.yandex.autoschool.splinter.application.configuration.DatabaseConfigura
 import ru.yandex.autoschool.splinter.application.configuration.database.Driver;
 import ru.yandex.autoschool.splinter.config.FilterPriorities;
 import ru.yandex.autoschool.splinter.di.SimpleContainer;
+import ru.yandex.autoschool.splinter.utils.db.Initializer;
 
 import javax.annotation.Priority;
 import javax.sql.DataSource;
@@ -60,12 +61,8 @@ public class DatabaseProvider implements ContainerRequestFilter {
                     changeLogPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
             );
             liquibaseMigrationManager.update("");
-            String fixturesPath = getFixturesLocation();
-            Liquibase liquibaseFixtureImporter = new Liquibase(
-                    fixturesPath, new FileSystemResourceAccessor(), getLiquibaseConnection()
-            );
-            liquibaseFixtureImporter.update("");
             openConnection();
+            Initializer.initialize();
         } catch (Exception e) {
             logger.error("Failed to start embedded database", e);
             System.exit(-1);
