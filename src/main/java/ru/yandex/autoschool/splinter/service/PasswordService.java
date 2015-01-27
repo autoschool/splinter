@@ -23,7 +23,7 @@ public final class PasswordService {
     }
 
     public synchronized String encrypt(String plaintext) throws PasswordEncryptException {
-        MessageDigest md = null;
+        MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA");
         }
@@ -38,10 +38,6 @@ public final class PasswordService {
         }
 
         byte raw[] = md.digest();
-        String hash = (new BASE64Encoder()).encode(raw);
-
-        return hash;
+        return (new BASE64Encoder()).encode(raw);
     }
-
-
 }

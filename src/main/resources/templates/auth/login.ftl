@@ -11,11 +11,11 @@
                     </div>
                 </#if>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="login" name="email" value="admin@localhost.ru"
-                           placeholder="Login" required>
+                    <input type="text" class="form-control" id="login" name="email"
+                           placeholder="Email or nickname" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="pass" name="pass" value="password"
+                    <input type="password" class="form-control" id="pass" name="pass"
                            placeholder="Password" required>
                 </div>
             </div>
